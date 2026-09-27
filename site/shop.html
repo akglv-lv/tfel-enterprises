@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<title>Shop | FeLo</title>
+	<meta name="description" content="Every FeLo and TFeL Enterprises piece: shirts, hoodies, crewnecks, hats and tank tops.">
+	<meta name="theme-color" content="#0A0B13">
+	<link rel="icon" href="favicon.svg" type="image/svg+xml">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@400;500&display=swap">
+	<link rel="stylesheet" href="css/site.css">
+</head>
+<body data-page="shop">
+	<a class="skip-link" href="#main">Skip to content</a>
+	<div data-site-header></div>
+
+	<main id="main" tabindex="-1">
+		<div class="tiles tiles--6" role="group" aria-label="Collection" data-tiles></div>
+
+		<section class="wrap section">
+			<div class="page-head">
+				<h1 class="page-title" data-title>Shop all</h1>
+			</div>
+
+			<div class="tools">
+				<div class="chips" role="group" aria-label="Product type" data-types></div>
+				<div class="tools__right">
+					<label class="visually-hidden" for="ShopSearch">Search products</label>
+					<input id="ShopSearch" type="search" placeholder="Search" style="width: 170px" data-search>
+					<label class="visually-hidden" for="ShopSort">Sort</label>
+					<select id="ShopSort" class="inline" data-sort>
+						<option value="featured">Featured</option>
+						<option value="low">Price: low to high</option>
+						<option value="high">Price: high to low</option>
+						<option value="colours">Most colours</option>
+						<option value="az">A to Z</option>
+					</select>
+				</div>
+			</div>
+			<p class="meta" data-count aria-live="polite"></p>
+			<div class="grid" data-grid style="margin-top: 16px"></div>
+		</section>
+	</main>
+
+	<div data-site-footer></div>
+	<script type="module" src="js/pages/shop.js"></script>
+</body>
+</html>

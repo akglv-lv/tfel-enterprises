@@ -1,0 +1,52 @@
+{
+	"_note": "Placeholder content. Swap in Tyler's real games, prices and wording. Set a price to a number (in USD) to show it; null shows 'Price coming soon'.",
+	"games": [],
+	"skills": [
+		{ "title": "Game sense", "text": "Where to be and when. Reading the lobby, rotating early and picking fights you can win." },
+		{ "title": "Mechanics", "text": "Aim, movement and building the muscle memory that holds up under pressure." },
+		{ "title": "Comms and teamwork", "text": "Clear, short callouts and playing around your squad instead of next to it." },
+		{ "title": "Mindset", "text": "Staying calm after a bad game, and practising with a plan instead of grinding on autopilot." }
+	],
+	"packages": [
+		{
+			"id": "vod",
+			"name": "VOD Review",
+			"price": null,
+			"unit": "per review",
+			"summary": "Send a match. Get it broken down.",
+			"includes": ["You send one recorded match", "Written or video breakdown of your mistakes and wins", "Three things to practise next"],
+			"featured": false
+		},
+		{
+			"id": "live",
+			"name": "Live 1-on-1",
+			"price": null,
+			"unit": "per 60 min session",
+			"summary": "Play with FeLo watching and coaching live.",
+			"includes": ["60 minutes on voice call", "Live feedback while you play", "Recording of the session to rewatch", "Follow-up notes after"],
+			"featured": true
+		},
+		{
+			"id": "monthly",
+			"name": "Monthly Grind",
+			"price": null,
+			"unit": "per month",
+			"summary": "A month of coaching with a plan.",
+			"includes": ["Four live sessions", "Two VOD reviews", "A practice plan that changes as you improve", "Message access between sessions"],
+			"featured": false
+		}
+	],
+	"steps": [
+		{ "title": "Apply", "text": "Fill in the form below with your game, rank and what you want to get better at." },
+		{ "title": "Pick a time", "text": "If it's a fit, you get an email with times that work in your time zone." },
+		{ "title": "Play", "text": "Join the session, or send your match for a review." },
+		{ "title": "Level up", "text": "You get notes and a practice plan to keep improving after the session." }
+	],
+	"faq": [
+		{ "q": "What games does FeLo coach?", "a": "The games FeLo plays on stream. Tell us your game in the form and we'll let you know if it's one he coaches." },
+		{ "q": "Do I need to be good already?", "a": "No. Sessions are built around where you are now, whether that's your first ranked season or pushing for the top." },
+		{ "q": "What do I need for a live session?", "a": "Your game, a mic, and a stable connection. We'll send the call link when your time is booked." },
+		{ "q": "I'm under 18. Can I apply?", "a": "Yes, as long as a parent or guardian knows and is OK with it. We may ask to confirm with them before booking." },
+		{ "q": "Can I reschedule?", "a": "Yes. Let us know at least 24 hours before your session and we'll find a new time." }
+	]
+}

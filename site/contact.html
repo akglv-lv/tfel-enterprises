@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<title>Contact | FeLo</title>
+	<meta name="description" content="Questions about an order, coaching or anything else? Message the FeLo team.">
+	<meta name="theme-color" content="#0A0B13">
+	<link rel="icon" href="favicon.svg" type="image/svg+xml">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@400;500&display=swap">
+	<link rel="stylesheet" href="css/site.css">
+</head>
+<body data-page="contact">
+	<a class="skip-link" href="#main">Skip to content</a>
+	<div data-site-header></div>
+
+	<main id="main" tabindex="-1">
+		<section class="wrap section">
+			<div class="apply">
+				<div class="apply__side">
+					<h1 class="page-title">Contact</h1>
+					<p class="lead">Questions about an order, coaching, or working with FeLo? Send a message and we'll reply by email.</p>
+					<p class="meta">Most answers about shipping, returns and sizes are already on the <a href="help.html">Help page</a>.</p>
+				</div>
+				<div>
+					<form class="form" data-contact-form>
+						<div class="form__row">
+							<div class="field">
+								<label class="label" for="CName">Name</label>
+								<input id="CName" name="name" type="text" autocomplete="name" required>
+							</div>
+							<div class="field">
+								<label class="label" for="CEmail">Email</label>
+								<input id="CEmail" name="email" type="email" autocomplete="email" required>
+							</div>
+						</div>
+						<div class="form__row">
+							<div class="field">
+								<label class="label" for="CTopic">Topic</label>
+								<select id="CTopic" name="topic" required data-topic>
+									<option value="">Choose one</option>
+									<option value="order">An order</option>
+									<option value="coaching">Coaching</option>
+									<option value="business">Business or collabs</option>
+									<option value="other">Something else</option>
+								</select>
+							</div>
+							<div class="field" data-order-field hidden>
+								<label class="label" for="COrder">Order number</label>
+								<input id="COrder" name="order" type="text" placeholder="#1001">
+							</div>
+						</div>
+						<div class="field">
+							<label class="label" for="CMessage">Message</label>
+							<textarea id="CMessage" name="message" minlength="10" required></textarea>
+						</div>
+						<div><button type="submit" class="btn">Send message</button></div>
+					</form>
+					<div class="form__done" hidden>
+						<strong>Message sent</strong>
+						<p>Thanks for reaching out. We'll reply by email.</p>
+						<p class="meta" data-not-connected>Test mode: the contact form isn't connected to an inbox yet, so this message wasn't delivered.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<div data-site-footer></div>
+	<script type="module" src="js/pages/contact.js"></script>
+</body>
+</html>
