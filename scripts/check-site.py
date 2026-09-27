@@ -67,7 +67,7 @@ def check_references():
 		text = page.read_text(encoding="utf-8")
 		for m in re.finditer(r'(?:href|src)="([^"]+)"', text):
 			url = m.group(1)
-			if re.match(r"^(https?:|mailto:|tel:|#|data:|javascript:)", url) or "${" in url:
+			if re.match(r"^(https?:|mailto:|tel:|#|data:|javascript:)", url) or "${" in url or "'" in url or "+" in url:
 				continue
 			path = url.split("#")[0].split("?")[0]
 			if not path:

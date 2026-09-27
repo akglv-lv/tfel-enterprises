@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<title>Events | TFeL Enterprises</title>
+	<meta name="description" content="TFeL Enterprise 8's: Call of Duty 8's matches hosted and streamed by FeLo.">
+	<meta name="theme-color" content="#0e0e0e">
+	<link rel="icon" href="favicon.svg" type="image/svg+xml">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,500..900,0..100&family=Geist:wght@400..700&family=Geist+Mono:wght@400;500&display=swap">
+	<link rel="stylesheet" href="css/site.css">
+</head>
+<body data-page="events">
+	<a class="skip-link" href="#main">Skip to content</a>
+	<div data-site-header></div>
+
+	<main id="main" tabindex="-1">
+		<section class="coach-hero">
+			<div class="wrap">
+				<p class="eyebrow" style="color: var(--on-black-grey)">Events</p>
+				<h1 class="display">TFeL Enterprise 8's</h1>
+				<p class="lead">Call of Duty 8's matches run by TFeL Enterprises and streamed live on FeLo's Twitch.</p>
+				<div class="feature__actions">
+					<a class="btn btn--light" href="watch.html">Watch live</a>
+					<a class="btn btn--ghost" style="color: var(--on-black); border-color: #444" href="contact.html?topic=business">Get involved</a>
+				</div>
+			</div>
+		</section>
+
+		<section class="wrap section">
+			<div class="section__head">
+				<h2 class="section__title">Upcoming</h2>
+				<span class="placeholder-note">Schedule: Tyler to add</span>
+			</div>
+			<p class="lead">Dates, formats and sign-ups will be posted here. Until then, 8's are announced on stream.</p>
+		</section>
+
+		<section class="wrap section">
+			<div class="section__head">
+				<h2 class="section__title">Past 8's</h2>
+				<a class="link-arrow" href="https://www.youtube.com/@TylerFeLo" target="_blank" rel="noopener">More on YouTube</a>
+			</div>
+			<div class="video-grid" data-past></div>
+		</section>
+	</main>
+
+	<div data-site-footer></div>
+	<script type="module">
+		import "./js/layout.js";
+		import { esc } from "./js/ui.js";
+		// Past 8's come from the synced YouTube list: any video with "8's" in the title.
+		fetch("data/videos.json")
+			.then((r) => r.json())
+			.then((d) => {
+				const list = (d.videos || []).filter((v) => /8'?s\b/i.test(v.title)).slice(0, 6);
+				document.querySelector("[data-past]").innerHTML = list
+					.map((v) => `<a class="video video--play" href="https://www.youtube.com/watch?v=${esc(v.id)}" target="_blank" rel="noopener"><div class="video__pic"><img src="https://i.ytimg.com/vi/${esc(v.id)}/hqdefault.jpg" alt="" loading="lazy">${v.length ? `<span class="video__len">${esc(v.length)}</span>` : ""}</div><h3 class="video__title">${esc(v.title)}</h3></a>`)
+					.join("");
+			})
+			.catch(() => {});
+	</script>
+</body>
+</html>

@@ -33,7 +33,7 @@ function render(product, collection) {
 		findVariantById(product, params.get("v")) || product.variants.find((v) => v.available) || product.variants[0];
 	let selected = [...start.options];
 	const name = shortTitle(product.title);
-	document.title = `${name} | FeLo`;
+	document.title = `${name} | TFeL Enterprises`;
 
 	const optionsHtml = single
 		? ""

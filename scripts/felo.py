@@ -23,7 +23,7 @@ SITE = ROOT / "site"
 SCRIPTS = ROOT / "scripts"
 PY = sys.executable
 # What "ship" commits. theme/ (the Shopify backup) is left out on purpose.
-SHIP_PATHS = ["site", "scripts", "brand", ".claude", "README.md"]
+SHIP_PATHS = ["site", "scripts", "brand", ".claude", ".github", "README.md"]
 
 
 def run(*args, check=False):

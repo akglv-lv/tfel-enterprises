@@ -419,3 +419,19 @@ tr:last-child td { border-bottom: 0; }
 .live__copy .lead { color: var(--on-black-grey); }
 .status--live { color: var(--red); background: #fff; border-color: #fff; }
 @media (max-width: 900px) { .live__inner { grid-template-columns: 1fr; gap: 18px; } }
+
+/* TFeL Enterprises wordmark: heavy "TFeL" with a small spaced "Enterprises" beside it */
+.logo { display: inline-flex; align-items: baseline; gap: 7px; }
+.logo__sub { font: 500 11px/1 var(--mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--grey); }
+.site-footer .logo__sub { color: var(--on-black-grey); }
+
+/* Company intro on home */
+.intro { border-bottom: 1px solid var(--line); }
+.intro .wrap { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 32px; align-items: end; padding-block: clamp(36px, 6vw, 72px); }
+.intro .display { font-size: clamp(44px, 7.5vw, 104px); line-height: 0.9; }
+.intro .display em { font-style: normal; color: var(--red); }
+.pillars { display: grid; gap: 0; border-top: 1px solid var(--ink); }
+.pillars a { display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); text-decoration: none; font-size: 17px; }
+.pillars a span { font: 400 12px/1.6 var(--mono); color: var(--grey); }
+.pillars a:hover span { color: var(--red); }
+@media (max-width: 900px) { .intro .wrap { grid-template-columns: 1fr; } }

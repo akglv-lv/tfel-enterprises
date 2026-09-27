@@ -36,7 +36,7 @@ function syncUrl() {
 function render() {
 	const col = collections.find((c) => c.handle === state.c);
 	title.textContent = col ? col.title : "Shop all";
-	document.title = `${col ? col.title : "Shop"} | FeLo`;
+	document.title = `${col ? col.title : "Shop"} | TFeL Enterprises`;
 
 	// Lead collections first (from data/site.json), then "All", then the rest.
 	const tab = (handle, label, n) =>

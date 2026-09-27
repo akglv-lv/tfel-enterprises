@@ -16,19 +16,21 @@ const header = `
 			<details class="mobile-menu">
 				<summary aria-label="Menu"><span></span><span></span></summary>
 				<nav class="mobile-menu__panel" aria-label="Main menu" data-nav-mobile>
-					<a href="shop.html">Shop all</a>
-					<a href="watch.html">Watch</a>
+					<a href="shop.html">Shop</a>
 					<a href="coaching.html">Coaching</a>
+					<a href="events.html">Events</a>
+					<a href="watch.html">Watch</a>
 					<a href="about.html">About</a>
 					<a href="help.html">Help</a>
 					<a href="contact.html">Contact</a>
 				</nav>
 			</details>
-			<a class="logo" href="index.html" aria-label="FeLo home"><span class="logo__text">FeLo</span></a>
+			<a class="logo" href="index.html" aria-label="TFeL Enterprises home"><span class="logo__text">TFeL</span><span class="logo__sub">Enterprises</span></a>
 			<nav class="main-nav" aria-label="Main menu" data-nav>
-				<a href="shop.html"${page === "shop" && !params.get("c") ? ' aria-current="page"' : ""}>Shop all</a>
-				<a href="watch.html"${current("watch")}>Watch</a>
+				<a href="shop.html"${current("shop")}>Shop</a>
 				<a href="coaching.html"${current("coaching")}>Coaching</a>
+				<a href="events.html"${current("events")}>Events</a>
+				<a href="watch.html"${current("watch")}>Watch</a>
 				<a href="about.html"${current("about")}>About</a>
 			</nav>
 			<div class="site-header__icons">
@@ -43,8 +45,8 @@ const footer = `
 <footer class="site-footer">
 	<div class="wrap site-footer__grid">
 		<div class="site-footer__brand">
-			<span class="logo__text">FeLo</span>
-			<p>Merch, coaching and streams from TFeL Enterprises.</p>
+			<span class="logo"><span class="logo__text">TFeL</span><span class="logo__sub">Enterprises</span></span>
+			<p>Merch, coaching and Call of Duty events from FeLo.</p>
 			<form class="inline-form" data-alerts-form>
 				<div class="field">
 					<label class="visually-hidden" for="AlertsEmail">Email for new drops</label>
@@ -64,9 +66,10 @@ const footer = `
 			<div class="site-footer__menu" data-collections-footer></div>
 		</nav>
 		<nav class="site-footer__menu" aria-label="FeLo">
-			<h2 class="label">FeLo</h2>
-			<a href="watch.html">Watch</a>
+			<h2 class="label">TFeL Enterprises</h2>
 			<a href="coaching.html">Coaching</a>
+			<a href="events.html">Events</a>
+			<a href="watch.html">Watch</a>
 			<a href="about.html">About</a>
 			<div class="site-footer__menu" data-socials></div>
 		</nav>
@@ -129,7 +132,6 @@ Promise.all([getSite(), orderedCollections()])
 			const here = page === "shop" && params.get("c") === f.collection ? ' aria-current="page"' : "";
 			return `<a href="shop.html?c=${encodeURIComponent(f.collection)}"${here}>${esc(f.title)}</a>`;
 		};
-		document.querySelector("[data-nav]").insertAdjacentHTML("afterbegin", lead.map(navLink).join(""));
 		document.querySelector("[data-nav-mobile]").insertAdjacentHTML("afterbegin", lead.map(navLink).join(""));
 
 		document.querySelector("[data-collections-footer]").outerHTML = cols
