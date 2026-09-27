@@ -1,0 +1,51 @@
+{
+  "sections": {
+    "hero": {
+      "type": "skyline-hero",
+      "settings": {
+        "eyebrow": "TFeL Enterprises · Skyline Collection",
+        "heading": "After hours",
+        "button_label": "Shop the collection",
+        "button_link": "shopify://collections/tfel-enterprises-skyline"
+      },
+      "blocks": {
+        "purple-pink": { "type": "colourway", "settings": { "name": "Purple-Pink", "color_a": "#7B3FE4", "color_b": "#FF5FA2" } },
+        "yellow-blue": { "type": "colourway", "settings": { "name": "Yellow-Blue", "color_a": "#2F6BFF", "color_b": "#FFC93C" } },
+        "purple-orange": { "type": "colourway", "settings": { "name": "Purple-Orange", "color_a": "#8A3FD1", "color_b": "#FF8A3D" } },
+        "grey-cyan": { "type": "colourway", "settings": { "name": "Grey-Cyan", "color_a": "#4D5566", "color_b": "#2FE0E8" } },
+        "red-blue": { "type": "colourway", "settings": { "name": "Red-Blue", "color_a": "#2C5BFF", "color_b": "#FF3B4E" } }
+      },
+      "block_order": ["purple-pink", "yellow-blue", "purple-orange", "grey-cyan", "red-blue"]
+    },
+    "tiles": {
+      "type": "collection-tiles",
+      "settings": { "label": "Collections" },
+      "blocks": {
+        "skyline": { "type": "collection", "settings": { "collection": "tfel-enterprises-skyline" } },
+        "premium": { "type": "collection", "settings": { "collection": "tfel-enterprises-premium" } },
+        "elite": { "type": "collection", "settings": { "collection": "elite-champion" } },
+        "b2a": { "type": "collection", "settings": { "collection": "b2a" } },
+        "love": { "type": "collection", "settings": { "collection": "man-i-love-felo" } }
+      },
+      "block_order": ["skyline", "premium", "elite", "b2a", "love"]
+    },
+    "skyline-grid": {
+      "type": "featured-products",
+      "settings": { "heading": "The Skyline collection", "collection": "tfel-enterprises-skyline", "limit": 8 }
+    },
+    "premium-grid": {
+      "type": "featured-products",
+      "settings": { "heading": "TFeL Enterprises Premium", "collection": "tfel-enterprises-premium", "limit": 4 }
+    },
+    "info": {
+      "type": "info-strip",
+      "blocks": {
+        "sizes": { "type": "item", "settings": { "title": "Sizes S to 5XL", "text": "<p>Tees go up to 5XL. Hoodies, crewnecks and tanks go up to 3XL. Hats are one size.</p>" } },
+        "currency": { "type": "item", "settings": { "title": "USD or CAD", "text": "<p>Switch country at the bottom of any page to see prices in your currency.</p>" } },
+        "follow": { "type": "item", "settings": { "title": "Follow FeLo", "text": "<p><a href=\"https://www.youtube.com/user/TylerJ515\">YouTube</a> · <a href=\"https://tiktok.com/@tylerfelo\">TikTok</a> · <a href=\"https://x.com/FeLo\">X</a></p>" } }
+      },
+      "block_order": ["sizes", "currency", "follow"]
+    }
+  },
+  "order": ["hero", "tiles", "skyline-grid", "premium-grid", "info"]
+}

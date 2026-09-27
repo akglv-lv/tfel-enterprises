@@ -1,0 +1,18 @@
+{
+  "sections": {
+    "tiles": {
+      "type": "collection-tiles",
+      "settings": { "label": "Collections" },
+      "blocks": {
+        "skyline": { "type": "collection", "settings": { "collection": "tfel-enterprises-skyline" } },
+        "premium": { "type": "collection", "settings": { "collection": "tfel-enterprises-premium" } },
+        "elite": { "type": "collection", "settings": { "collection": "elite-champion" } },
+        "b2a": { "type": "collection", "settings": { "collection": "b2a" } },
+        "love": { "type": "collection", "settings": { "collection": "man-i-love-felo" } }
+      },
+      "block_order": ["skyline", "premium", "elite", "b2a", "love"]
+    },
+    "main": { "type": "main-collection", "settings": { "per_page": 24 } }
+  },
+  "order": ["tiles", "main"]
+}

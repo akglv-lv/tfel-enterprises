@@ -1,0 +1,49 @@
+<nav class="tiles" aria-label="{{ section.settings.label | escape }}">
+  {%- for block in section.blocks -%}
+    {%- assign c = block.settings.collection -%}
+    {%- if c != blank -%}
+      <a class="tile{% if collection.handle == c.handle %} is-active{% endif %}" href="{{ c.url }}" {{ block.shopify_attributes }}>
+        <b>{{ block.settings.title | default: c.title | escape }}</b>
+        <small>{{ c.products_count }} piece{% if c.products_count != 1 %}s{% endif %}</small>
+      </a>
+    {%- else -%}
+      <span class="tile" {{ block.shopify_attributes }}>
+        <b>{{ block.settings.title | default: 'Pick a collection' | escape }}</b>
+        <small>Choose one in the editor</small>
+      </span>
+    {%- endif -%}
+  {%- endfor -%}
+</nav>
+
+{% schema %}
+{
+  "name": "Collection tiles",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Name for screen readers", "default": "Collections" }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "text", "id": "title", "label": "Title", "info": "Leave empty to use the collection's own name." }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Collection tiles",
+      "blocks": [
+        { "type": "collection" },
+        { "type": "collection" },
+        { "type": "collection" },
+        { "type": "collection" },
+        { "type": "collection" }
+      ]
+    }
+  ]
+}
+{% endschema %}

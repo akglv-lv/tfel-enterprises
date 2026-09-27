@@ -1,0 +1,42 @@
+{%- paginate search.results by 24 -%}
+  <section class="wrap section">
+    <div class="page-head">
+      <h1 class="page-title">Search</h1>
+      <form action="{{ routes.search_url }}" method="get" role="search" class="search-form">
+        <label class="visually-hidden" for="SearchInput">Search the store</label>
+        <input id="SearchInput" type="search" name="q" value="{{ search.terms | escape }}" placeholder="Hoodie, Skyline, B2A…">
+        <input type="hidden" name="options[prefix]" value="last">
+        <button type="submit" class="btn">Search</button>
+      </form>
+      {%- if search.performed -%}
+        <p class="meta">
+          {{ search.results_count }} result{% if search.results_count != 1 %}s{% endif %} for “{{ search.terms | escape }}”
+        </p>
+      {%- endif -%}
+    </div>
+
+    {%- if search.performed and search.results_count > 0 -%}
+      <div class="grid">
+        {%- for item in search.results -%}
+          {%- if item.object_type == 'product' -%}
+            {% render 'product-card', product: item %}
+          {%- else -%}
+            <a class="card card--text" href="{{ item.url }}">
+              <span class="eyebrow">{{ item.object_type }}</span>
+              <h3 class="card__title">{{ item.title }}</h3>
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      {%- if paginate.pages > 1 -%}
+        <nav class="pagination" aria-label="Pages">{{ paginate | default_pagination }}</nav>
+      {%- endif -%}
+    {%- elsif search.performed -%}
+      <p class="empty">Nothing found. Try a shorter word like “hoodie” or “skyline”.</p>
+    {%- endif -%}
+  </section>
+{%- endpaginate -%}
+
+{% schema %}
+{ "name": "Search results", "tag": "div" }
+{% endschema %}

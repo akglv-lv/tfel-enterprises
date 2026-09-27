@@ -1,0 +1,11 @@
+{
+  "current": "Default",
+  "presets": {
+    "Default": {
+      "color_a": "#7B3FE4",
+      "color_b": "#FF5FA2",
+      "logo_invert": true,
+      "logo_width": 120
+    }
+  }
+}

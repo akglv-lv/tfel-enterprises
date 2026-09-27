@@ -1,0 +1,50 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "FeLo Skyline",
+    "theme_version": "0.1.0",
+    "theme_author": "TFeL Enterprises",
+    "theme_documentation_url": "https://tfelent.com",
+    "theme_support_url": "https://tfelent.com/pages/contact"
+  },
+  {
+    "name": "Colours",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "The two accent colours used for buttons, highlights and the announcement bar. The hero skyline has its own colourways."
+      },
+      { "type": "color", "id": "color_a", "label": "Accent colour A", "default": "#7B3FE4" },
+      { "type": "color", "id": "color_b", "label": "Accent colour B", "default": "#FF5FA2" }
+    ]
+  },
+  {
+    "name": "Logo",
+    "settings": [
+      { "type": "image_picker", "id": "logo", "label": "Logo" },
+      {
+        "type": "checkbox",
+        "id": "logo_invert",
+        "label": "Turn a black logo white",
+        "info": "The theme is dark. Leave this on if your logo file is black.",
+        "default": true
+      },
+      { "type": "range", "id": "logo_width", "label": "Logo width", "min": 60, "max": 240, "step": 4, "unit": "px", "default": 120 },
+      { "type": "image_picker", "id": "favicon", "label": "Favicon", "info": "Square image, at least 32 by 32 px." }
+    ]
+  },
+  {
+    "name": "Social links",
+    "settings": [
+      { "type": "text", "id": "social_youtube", "label": "YouTube", "default": "https://www.youtube.com/user/TylerJ515" },
+      { "type": "text", "id": "social_tiktok", "label": "TikTok", "default": "https://tiktok.com/@tylerfelo" },
+      { "type": "text", "id": "social_x", "label": "X (Twitter)", "default": "https://x.com/FeLo" }
+    ]
+  },
+  {
+    "name": "Social sharing",
+    "settings": [
+      { "type": "image_picker", "id": "share_image", "label": "Default share image", "info": "Shown when a page without its own image is shared." }
+    ]
+  }
+]

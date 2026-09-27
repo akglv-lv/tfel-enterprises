@@ -1,0 +1,71 @@
+{%- comment -%}
+  One product tile. Used on the home page, collections, search and recommendations.
+  Usage: {% render 'product-card', product: product %}
+{%- endcomment -%}
+{%- liquid
+  assign colour_count = 0
+  assign size_range = ''
+  for option in product.options_with_values
+    assign option_name = option.name | downcase
+    if option_name == 'color' or option_name == 'colour'
+      assign colour_count = option.values.size
+    elsif option_name == 'size'
+      if option.values.size > 1
+        assign size_range = option.values.first | append: '–' | append: option.values.last
+      else
+        assign size_range = option.values.first
+      endif
+    endif
+  endfor
+  if size_range == ''
+    assign size_range = 'One size'
+  endif
+
+  assign ribbon = ''
+  if product.available == false
+    assign ribbon = 'Sold out'
+  elsif product.compare_at_price > product.price
+    assign ribbon = 'Sale'
+  elsif product.title contains 'Skyline'
+    assign ribbon = 'Skyline'
+  elsif product.title contains 'Premium'
+    assign ribbon = 'Premium'
+  endif
+
+  assign short_title = product.title | remove: 'TFeL Enterprises ' | replace: ' City Skyline', ' Skyline'
+-%}
+<a class="card" href="{{ product.url }}">
+  <div class="card__pic">
+    {%- if ribbon != '' -%}
+      <span class="ribbon">{{ ribbon }}</span>
+    {%- endif -%}
+    {%- if product.featured_media -%}
+      {%- assign alt = product.featured_media.alt | default: product.title -%}
+      {{
+        product.featured_media
+        | image_url: width: 900
+        | image_tag:
+          loading: 'lazy',
+          widths: '300, 450, 600, 900',
+          sizes: '(min-width: 1100px) 280px, (min-width: 700px) 33vw, 50vw',
+          alt: alt
+      }}
+    {%- else -%}
+      {{ 'product-apparel-1' | placeholder_svg_tag: 'placeholder' }}
+    {%- endif -%}
+    <span class="card__go">View</span>
+  </div>
+  <div class="card__row">
+    <h3 class="card__title">{{ short_title }}</h3>
+    <span class="price">
+      {%- if product.price_varies -%}From {% endif -%}
+      {{- product.price | money -}}
+    </span>
+  </div>
+  <span class="card__sub">
+    {%- if colour_count > 0 -%}
+      {{ colour_count }} colour{% if colour_count != 1 %}s{% endif %} ·
+    {%- endif %}
+    {{ size_range }}
+  </span>
+</a>

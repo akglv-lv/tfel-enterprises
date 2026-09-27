@@ -1,0 +1,63 @@
+<footer class="site-footer">
+  <div class="wrap site-footer__grid">
+    <div class="site-footer__brand">
+      <span class="logo__text">FeLo</span>
+      {%- if section.settings.blurb != blank -%}
+        <p>{{ section.settings.blurb | escape }}</p>
+      {%- endif -%}
+      <div class="social">
+        {%- if settings.social_youtube != blank -%}<a href="{{ settings.social_youtube }}" target="_blank" rel="noopener">YouTube</a>{%- endif -%}
+        {%- if settings.social_tiktok != blank -%}<a href="{{ settings.social_tiktok }}" target="_blank" rel="noopener">TikTok</a>{%- endif -%}
+        {%- if settings.social_x != blank -%}<a href="{{ settings.social_x }}" target="_blank" rel="noopener">X</a>{%- endif -%}
+      </div>
+    </div>
+
+    {%- if section.settings.menu != blank -%}
+      <nav class="site-footer__menu" aria-label="Footer menu">
+        <h2 class="label">{{ section.settings.menu.title }}</h2>
+        {%- for link in section.settings.menu.links -%}
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        {%- endfor -%}
+      </nav>
+    {%- endif -%}
+
+    {%- if localization.available_countries.size > 1 -%}
+      <div class="site-footer__region">
+        {%- form 'localization', id: 'FooterLocalization' -%}
+          <label class="label" for="FooterCountry">Country / currency</label>
+          <select id="FooterCountry" name="country_code" data-autosubmit>
+            {%- for country in localization.available_countries -%}
+              <option value="{{ country.iso_code }}"{% if country.iso_code == localization.country.iso_code %} selected{% endif %}>
+                {{ country.name }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})
+              </option>
+            {%- endfor -%}
+          </select>
+          <noscript><button type="submit" class="btn btn--ghost">Update</button></noscript>
+        {%- endform -%}
+      </div>
+    {%- endif -%}
+  </div>
+
+  <div class="wrap site-footer__base">
+    <span>&copy; {{ 'now' | date: '%Y' }} {{ shop.name | link_to: routes.root_url }}</span>
+    <span class="payments">
+      {%- for type in shop.enabled_payment_types -%}
+        {{ type | payment_type_svg_tag: class: 'payment-icon' }}
+      {%- endfor -%}
+    </span>
+    <span>{{ powered_by_link }}</span>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "tag": "div",
+  "enabled_on": { "groups": ["footer"] },
+  "settings": [
+    { "type": "text", "id": "blurb", "label": "Short line under the logo", "default": "Official merch from TFeL Enterprises." },
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "footer" },
+    { "type": "paragraph", "content": "Social links are in Theme settings > Social links." }
+  ]
+}
+{% endschema %}

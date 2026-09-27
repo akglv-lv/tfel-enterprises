@@ -1,0 +1,31 @@
+{%- comment -%}
+  Shopify only fills `recommendations` when this section is requested through the
+  recommendations URL, so the page first renders an empty shell and theme.js loads the real list.
+{%- endcomment -%}
+<section
+  class="wrap section"
+  data-recommendations
+  data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ section.settings.limit }}"
+>
+  {%- if recommendations.performed and recommendations.products_count > 0 -%}
+    <div class="section__head">
+      <h2 class="section__title">{{ section.settings.heading | escape }}</h2>
+    </div>
+    <div class="grid">
+      {%- for product in recommendations.products -%}
+        {% render 'product-card', product: product %}
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Product recommendations",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "You might also like" },
+    { "type": "range", "id": "limit", "label": "Products to show", "min": 2, "max": 8, "step": 1, "default": 4 }
+  ]
+}
+{% endschema %}

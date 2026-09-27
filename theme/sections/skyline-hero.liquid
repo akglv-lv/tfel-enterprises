@@ -1,0 +1,87 @@
+{%- liquid
+  assign first = section.blocks.first
+  assign fallback_link = section.settings.button_link | default: routes.all_products_collection_url
+-%}
+<section class="hero" data-skyline>
+  <canvas class="hero__sky" aria-hidden="true"></canvas>
+  <div class="hero__copy">
+    <div class="wrap">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      <h1 class="hero__title">
+        {{ section.settings.heading | escape }}
+        {%- if first -%}
+          <em data-way-name>in {{ first.settings.name | escape }}</em>
+        {%- endif -%}
+      </h1>
+      {%- if section.settings.button_label != blank -%}
+        <a class="btn" href="{{ first.settings.link | default: fallback_link }}" data-way-link>{{ section.settings.button_label | escape }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- if section.blocks.size > 0 -%}
+    <div class="hero__ways">
+      <div class="wrap" role="group" aria-label="Skyline colourway">
+        <span class="label">Colourway</span>
+        {%- for block in section.blocks -%}
+          <button
+            type="button"
+            class="way"
+            aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"
+            data-way
+            data-name="{{ block.settings.name | escape }}"
+            data-a="{{ block.settings.color_a }}"
+            data-b="{{ block.settings.color_b }}"
+            data-link="{{ block.settings.link | default: fallback_link }}"
+            {{ block.shopify_attributes }}
+          >
+            <i style="background: linear-gradient(135deg, {{ block.settings.color_a }}, {{ block.settings.color_b }})"></i>
+            {{ block.settings.name | escape }}
+          </button>
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
+</section>
+
+<script src="{{ 'skyline.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Skyline hero",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Small line above", "default": "TFeL Enterprises · Skyline Collection" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "After hours" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop the collection" },
+    { "type": "url", "id": "button_link", "label": "Button link", "info": "Used when a colourway has no link of its own." }
+  ],
+  "blocks": [
+    {
+      "type": "colourway",
+      "name": "Colourway",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Name", "default": "Purple-Pink" },
+        { "type": "color", "id": "color_a", "label": "Upper sky", "default": "#7B3FE4" },
+        { "type": "color", "id": "color_b", "label": "Horizon and windows", "default": "#FF5FA2" },
+        { "type": "url", "id": "link", "label": "Button link for this colourway" }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Skyline hero",
+      "blocks": [
+        { "type": "colourway", "settings": { "name": "Purple-Pink", "color_a": "#7B3FE4", "color_b": "#FF5FA2" } },
+        { "type": "colourway", "settings": { "name": "Yellow-Blue", "color_a": "#2F6BFF", "color_b": "#FFC93C" } },
+        { "type": "colourway", "settings": { "name": "Purple-Orange", "color_a": "#8A3FD1", "color_b": "#FF8A3D" } },
+        { "type": "colourway", "settings": { "name": "Grey-Cyan", "color_a": "#4D5566", "color_b": "#2FE0E8" } },
+        { "type": "colourway", "settings": { "name": "Red-Blue", "color_a": "#2C5BFF", "color_b": "#FF3B4E" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,83 @@
+{%- capture logo -%}
+  <a class="logo" href="{{ routes.root_url }}" aria-label="{{ shop.name }} home">
+    {%- if settings.logo != blank -%}
+      {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio | round -%}
+      {{
+        settings.logo
+        | image_url: width: 480
+        | image_tag:
+          class: 'logo__img',
+          width: settings.logo_width,
+          height: logo_height,
+          alt: shop.name,
+          loading: 'eager'
+      }}
+    {%- else -%}
+      <span class="logo__text">FeLo</span>
+    {%- endif -%}
+  </a>
+{%- endcapture -%}
+
+<header class="site-header{% if settings.logo_invert %} site-header--invert-logo{% endif %}">
+  <div class="wrap site-header__bar">
+    <details class="mobile-menu">
+      <summary aria-label="Menu"><span></span><span></span></summary>
+      <nav class="mobile-menu__panel" aria-label="Main menu">
+        {%- for link in section.settings.menu.links -%}
+          <a href="{{ link.url }}">{{ link.title }}</a>
+          {%- for child in link.links -%}
+            <a class="mobile-menu__child" href="{{ child.url }}">{{ child.title }}</a>
+          {%- endfor -%}
+        {%- endfor -%}
+      </nav>
+    </details>
+
+    <nav class="main-nav" aria-label="Main menu">
+      {%- for link in section.settings.menu.links -%}
+        {%- if link.links != blank -%}
+          <details class="drop">
+            <summary{% if link.child_active %} aria-current="true"{% endif %}>{{ link.title }}</summary>
+            <ul class="drop__list">
+              {%- for child in link.links -%}
+                <li>
+                  <a href="{{ child.url }}"{% if child.current %} aria-current="page"{% endif %}>{{ child.title }}</a>
+                </li>
+              {%- endfor -%}
+            </ul>
+          </details>
+        {%- else -%}
+          <a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a>
+        {%- endif -%}
+      {%- endfor -%}
+    </nav>
+
+    {{ logo }}
+
+    <div class="site-header__icons">
+      <a href="{{ routes.search_url }}" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16.5 16.5 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </a>
+      {%- if shop.customer_accounts_enabled -%}
+        <a href="{{ routes.account_url }}" aria-label="Account">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </a>
+      {%- endif -%}
+      <a class="cart-link" href="{{ routes.cart_url }}">
+        Cart <span class="cart-count" data-cart-count>{{ cart.item_count }}</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "tag": "div",
+  "class": "header-section",
+  "enabled_on": { "groups": ["header"] },
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
+    { "type": "paragraph", "content": "Logo, logo size and colour inversion are in Theme settings > Logo." }
+  ]
+}
+{% endschema %}

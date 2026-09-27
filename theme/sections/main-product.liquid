@@ -1,0 +1,144 @@
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign short_title = product.title | remove: 'TFeL Enterprises '
+-%}
+<section class="wrap product" data-product data-section="{{ section.id }}">
+  <div class="product__media">
+    <div class="product__main">
+      {%- assign main_media = current_variant.featured_media | default: product.featured_media -%}
+      {%- if main_media -%}
+        {%- assign alt = main_media.alt | default: product.title -%}
+        {{
+          main_media
+          | image_url: width: 1400
+          | image_tag:
+            class: 'product__img',
+            widths: '500, 800, 1100, 1400',
+            sizes: '(min-width: 900px) 55vw, 100vw',
+            alt: alt,
+            loading: 'eager'
+        }}
+      {%- else -%}
+        {{ 'product-apparel-1' | placeholder_svg_tag: 'placeholder' }}
+      {%- endif -%}
+    </div>
+
+    {%- if product.media.size > 1 -%}
+      <div class="product__thumbs" role="list">
+        {%- for media in product.media -%}
+          {%- if media.media_type == 'image' -%}
+            <button
+              type="button"
+              class="thumb{% if media.id == main_media.id %} is-active{% endif %}"
+              data-thumb
+              data-media-id="{{ media.id }}"
+              data-src="{{ media | image_url: width: 1400 }}"
+              aria-label="Show image {{ forloop.index }}"
+              role="listitem"
+            >
+              {{ media | image_url: width: 160 | image_tag: loading: 'lazy', alt: '' }}
+            </button>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+
+  <div class="product__info">
+    {%- if product.collections.size > 0 -%}
+      <p class="eyebrow">{{ product.collections.first.title | escape }}</p>
+    {%- endif -%}
+    <h1 class="product__title">{{ short_title }}</h1>
+
+    <p class="product__price">
+      <span data-price>{{ current_variant.price | money }}</span>
+      <s class="product__compare" data-compare{% unless current_variant.compare_at_price > current_variant.price %} hidden{% endunless %}>
+        {{- current_variant.compare_at_price | money -}}
+      </s>
+    </p>
+
+    {%- form 'product', product, class: 'product__form' -%}
+      <input type="hidden" name="id" value="{{ current_variant.id }}" data-variant-id>
+
+      {%- unless product.has_only_default_variant -%}
+        {%- for option in product.options_with_values -%}
+          {%- assign option_name = option.name | downcase -%}
+          {%- assign is_colour = false -%}
+          {%- if option_name == 'color' or option_name == 'colour' -%}
+            {%- assign is_colour = true -%}
+          {%- endif -%}
+          <fieldset class="option" data-option-index="{{ forloop.index0 }}">
+            <legend>
+              {{ option.name }}: <span data-option-value>{{ option.selected_value }}</span>
+            </legend>
+            <div class="option__values{% if is_colour %} option__values--swatch{% endif %}">
+              {%- for value in option.values -%}
+                {%- capture input_id -%}{{ section.id }}-{{ forloop.parentloop.index0 }}-{{ forloop.index0 }}{%- endcapture -%}
+                <input
+                  type="radio"
+                  id="{{ input_id }}"
+                  name="options[{{ option.name | escape }}]"
+                  value="{{ value | escape }}"
+                  {% if option.selected_value == value %}checked{% endif %}
+                >
+                {%- if is_colour -%}
+                  <label for="{{ input_id }}" class="swatch" title="{{ value | escape }}">
+                    <i style="background: {% render 'swatch-color', name: value %}"></i>
+                    <span class="visually-hidden">{{ value }}</span>
+                  </label>
+                {%- else -%}
+                  <label for="{{ input_id }}" class="pill">{{ value }}</label>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          </fieldset>
+        {%- endfor -%}
+      {%- endunless -%}
+
+      <div class="product__buy">
+        <div class="qty">
+          <label for="Qty-{{ section.id }}" class="visually-hidden">Quantity</label>
+          <button type="button" data-qty="-1" aria-label="One fewer">−</button>
+          <input id="Qty-{{ section.id }}" type="number" name="quantity" value="1" min="1" inputmode="numeric">
+          <button type="button" data-qty="1" aria-label="One more">+</button>
+        </div>
+        <button type="submit" name="add" class="btn btn--wide" data-add-button{% unless current_variant.available %} disabled{% endunless %}>
+          {%- if current_variant.available -%}Add to cart{%- else -%}Sold out{%- endif -%}
+        </button>
+      </div>
+      {{ form | payment_button }}
+    {%- endform -%}
+
+    {%- if product.description != blank -%}
+      <details class="product__details" open>
+        <summary>Details</summary>
+        <div class="rte">{{ product.description }}</div>
+      </details>
+    {%- endif -%}
+    {%- if section.settings.shipping_text != blank -%}
+      <details class="product__details">
+        <summary>Shipping and returns</summary>
+        <div class="rte">{{ section.settings.shipping_text }}</div>
+      </details>
+    {%- endif -%}
+  </div>
+
+  <script type="application/json" data-product-json>
+    {{ product | json }}
+  </script>
+</section>
+
+{% schema %}
+{
+  "name": "Product",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "shipping_text",
+      "label": "Shipping and returns",
+      "info": "Shown in a fold-out under the description. Leave empty to hide it."
+    }
+  ]
+}
+{% endschema %}

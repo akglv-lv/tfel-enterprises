@@ -1,0 +1,32 @@
+{% layout none %}
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Your {{ gift_card.initial_value | money }} gift card – {{ shop.name }}</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@400;500&display=swap">
+    {{ 'theme.css' | asset_url | stylesheet_tag }}
+    <style>
+      :root { --a: {{ settings.color_a }}; --b: {{ settings.color_b }}; }
+    </style>
+    {{ content_for_header }}
+  </head>
+  <body>
+    <main class="wrap section narrow password">
+      <span class="logo__text">FeLo</span>
+      <h1 class="page-title">Your {{ gift_card.initial_value | money }} gift card</h1>
+      {%- if gift_card.enabled == false or gift_card.expired -%}
+        <p class="notice notice--error">This gift card can no longer be used.</p>
+      {%- else -%}
+        <p>Balance left: <span class="price">{{ gift_card.balance | money }}</span></p>
+      {%- endif -%}
+      <p class="label">Code</p>
+      <p class="price" style="font-size: 22px">{{ gift_card.code | format_code }}</p>
+      {%- if gift_card.expires_on -%}
+        <p class="meta">Expires {{ gift_card.expires_on | date: '%B %-d, %Y' }}</p>
+      {%- endif -%}
+      <a class="btn" href="{{ shop.url }}">Start shopping</a>
+    </main>
+  </body>
+</html>

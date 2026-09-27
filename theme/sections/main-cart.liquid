@@ -1,0 +1,95 @@
+{%- liquid
+  assign threshold = section.settings.free_shipping | times: 100
+  assign remaining = threshold | minus: cart.total_price
+  if threshold > 0
+    assign progress = cart.total_price | times: 100 | divided_by: threshold
+    if progress > 100
+      assign progress = 100
+    endif
+  endif
+-%}
+<section class="wrap section cart">
+  <div class="page-head"><h1 class="page-title">Cart</h1></div>
+
+  {%- if cart.item_count == 0 -%}
+    <div class="empty">
+      <p>Your cart is empty.</p>
+      <a class="btn" href="{{ routes.all_products_collection_url }}">Shop everything</a>
+    </div>
+  {%- else -%}
+    <form action="{{ routes.cart_url }}" method="post" class="cart__grid" id="CartForm">
+      <div class="cart__lines">
+        {%- for item in cart.items -%}
+          <div class="line">
+            <a class="line__pic" href="{{ item.url }}">
+              {%- if item.image -%}
+                {{ item.image | image_url: width: 240 | image_tag: loading: 'lazy', alt: item.product.title }}
+              {%- endif -%}
+            </a>
+            <div class="line__info">
+              <a class="line__title" href="{{ item.url }}">{{ item.product.title | remove: 'TFeL Enterprises ' }}</a>
+              {%- unless item.product.has_only_default_variant -%}
+                <span class="meta">{{ item.variant.title }}</span>
+              {%- endunless -%}
+              <span class="meta">{{ item.final_price | money }} each</span>
+              <a class="line__remove" href="{{ item.url_to_remove }}">Remove</a>
+            </div>
+            <div class="line__right">
+              <div class="qty">
+                <label class="visually-hidden" for="Update-{{ forloop.index }}">Quantity for {{ item.product.title }}</label>
+                <button type="button" data-qty="-1" aria-label="One fewer">−</button>
+                <input id="Update-{{ forloop.index }}" type="number" name="updates[]" value="{{ item.quantity }}" min="0" inputmode="numeric" data-autosubmit>
+                <button type="button" data-qty="1" aria-label="One more">+</button>
+              </div>
+              <span class="price">{{ item.final_line_price | money }}</span>
+            </div>
+          </div>
+        {%- endfor -%}
+
+        {%- if section.settings.show_note -%}
+          <label class="label" for="CartNote">Order note</label>
+          <textarea id="CartNote" name="note" rows="3">{{ cart.note }}</textarea>
+        {%- endif -%}
+      </div>
+
+      <aside class="cart__summary">
+        {%- if threshold > 0 -%}
+          <div class="ship">
+            {%- if remaining > 0 -%}
+              <p>Add {{ remaining | money }} more for free shipping.</p>
+            {%- else -%}
+              <p>You've got free shipping.</p>
+            {%- endif -%}
+            <div class="ship__bar"><span style="width: {{ progress }}%"></span></div>
+          </div>
+        {%- endif -%}
+        <div class="sum"><span>Subtotal</span><span class="price">{{ cart.total_price | money_with_currency }}</span></div>
+        {%- if cart.cart_level_discount_applications.size > 0 -%}
+          {%- for discount in cart.cart_level_discount_applications -%}
+            <div class="sum meta"><span>{{ discount.title }}</span><span>−{{ discount.total_allocated_amount | money }}</span></div>
+          {%- endfor -%}
+        {%- endif -%}
+        <p class="meta">Taxes and shipping are worked out at checkout.</p>
+        <button type="submit" name="checkout" class="btn btn--wide">Check out</button>
+        <noscript><button type="submit" class="btn btn--ghost btn--wide">Update cart</button></noscript>
+      </aside>
+    </form>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Cart",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "number",
+      "id": "free_shipping",
+      "label": "Free shipping over (in store currency)",
+      "info": "Only shows a progress bar. Set the real rule in Settings > Shipping. Use 0 to hide it.",
+      "default": 0
+    },
+    { "type": "checkbox", "id": "show_note", "label": "Show order note box", "default": false }
+  ]
+}
+{% endschema %}

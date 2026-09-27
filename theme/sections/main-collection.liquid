@@ -1,0 +1,80 @@
+{%- paginate collection.products by section.settings.per_page -%}
+  <section class="wrap section">
+    <div class="page-head">
+      <h1 class="page-title">{{ collection.title }}</h1>
+      {%- if collection.description != blank -%}
+        <div class="rte page-intro">{{ collection.description }}</div>
+      {%- endif -%}
+    </div>
+
+    <form class="tools" data-filter-form>
+      <div class="chips" role="group" aria-label="Filter">
+        {%- for filter in collection.filters -%}
+          {%- if filter.type == 'list' -%}
+            {%- for value in filter.values limit: 12 -%}
+              {%- if value.count > 0 or value.active -%}
+                <a
+                  class="chip"
+                  href="{% if value.active %}{{ value.url_to_remove }}{% else %}{{ value.url_to_add }}{% endif %}"
+                  aria-pressed="{{ value.active }}"
+                >
+                  {{- value.label }} <small>{{ value.count }}</small>
+                </a>
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if collection.filters.size > 0 -%}
+          {%- assign any_active = false -%}
+          {%- for filter in collection.filters -%}
+            {%- if filter.active_values.size > 0 -%}{%- assign any_active = true -%}{%- endif -%}
+          {%- endfor -%}
+          {%- if any_active -%}
+            <a class="chip chip--clear" href="{{ collection.url }}?sort_by={{ collection.sort_by | default: collection.default_sort_by }}">Clear</a>
+          {%- endif -%}
+        {%- endif -%}
+      </div>
+
+      <div class="tools__right">
+        <span class="meta">{{ collection.products_count }} piece{% if collection.products_count != 1 %}s{% endif %}</span>
+        <label class="visually-hidden" for="SortBy">Sort</label>
+        <select id="SortBy" name="sort_by" data-autosubmit>
+          {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
+          {%- for option in collection.sort_options -%}
+            <option value="{{ option.value }}"{% if option.value == sort_by %} selected{% endif %}>{{ option.name }}</option>
+          {%- endfor -%}
+        </select>
+        {%- for filter in collection.filters -%}
+          {%- for value in filter.active_values -%}
+            <input type="hidden" name="{{ value.param_name }}" value="{{ value.value }}">
+          {%- endfor -%}
+        {%- endfor -%}
+      </div>
+    </form>
+
+    {%- if collection.products.size > 0 -%}
+      <div class="grid">
+        {%- for product in collection.products -%}
+          {% render 'product-card', product: product %}
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <p class="empty">Nothing matches those filters. <a href="{{ collection.url }}">Clear them</a> to see everything.</p>
+    {%- endif -%}
+
+    {%- if paginate.pages > 1 -%}
+      <nav class="pagination" aria-label="Pages">{{ paginate | default_pagination }}</nav>
+    {%- endif -%}
+  </section>
+{%- endpaginate -%}
+
+{% schema %}
+{
+  "name": "Collection",
+  "tag": "div",
+  "settings": [
+    { "type": "range", "id": "per_page", "label": "Products per page", "min": 8, "max": 48, "step": 4, "default": 24 },
+    { "type": "paragraph", "content": "The filter chips come from Search & Discovery filters. Add Product type or Color there to show them." }
+  ]
+}
+{% endschema %}

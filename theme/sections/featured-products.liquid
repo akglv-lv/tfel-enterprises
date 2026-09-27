@@ -1,0 +1,39 @@
+{%- assign c = section.settings.collection -%}
+<section class="wrap section">
+  <div class="section__head">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="section__title">{{ section.settings.heading | escape }}</h2>
+    {%- endif -%}
+    {%- if c != blank -%}
+      <a class="link-arrow" href="{{ c.url }}">View all {{ c.products_count }}</a>
+    {%- endif -%}
+  </div>
+
+  <div class="grid">
+    {%- if c != blank -%}
+      {%- for product in c.products limit: section.settings.limit -%}
+        {% render 'product-card', product: product %}
+      {%- endfor -%}
+    {%- else -%}
+      {%- for i in (1..4) -%}
+        <div class="card">
+          <div class="card__pic">{{ 'product-apparel-1' | placeholder_svg_tag: 'placeholder' }}</div>
+          <div class="card__row"><h3 class="card__title">Product name</h3><span class="price">$25.00</span></div>
+        </div>
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product grid",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "The Skyline collection" },
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "range", "id": "limit", "label": "Products to show", "min": 2, "max": 24, "step": 1, "default": 8 }
+  ],
+  "presets": [{ "name": "Product grid" }]
+}
+{% endschema %}

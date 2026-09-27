@@ -1,0 +1,7 @@
+{
+  "sections": {
+    "main": { "type": "main-product", "settings": {} },
+    "recommendations": { "type": "product-recommendations", "settings": { "heading": "You might also like", "limit": 4 } }
+  },
+  "order": ["main", "recommendations"]
+}
