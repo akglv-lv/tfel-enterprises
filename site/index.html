@@ -4,14 +4,14 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 	<title>FeLo | TFeL Enterprises</title>
-	<meta name="description" content="Official FeLo merch from TFeL Enterprises: the Skyline collection, Premium, Elite Champion, B2A and more, plus 1-on-1 gaming coaching with FeLo.">
-	<meta name="theme-color" content="#0A0B13">
+	<meta name="description" content="Official FeLo merch from TFeL Enterprises, plus Call of Duty coaching, streams and videos.">
+	<meta name="theme-color" content="#ffffff">
 	<meta property="og:title" content="FeLo | TFeL Enterprises">
-	<meta property="og:description" content="Official FeLo merch and gaming coaching.">
+	<meta property="og:description" content="Official FeLo merch, Call of Duty coaching, streams and videos.">
 	<link rel="icon" href="favicon.svg" type="image/svg+xml">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@400;500&display=swap">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,500..900,0..100&family=Geist:wght@400..700&family=Geist+Mono:wght@400;500&display=swap">
 	<link rel="stylesheet" href="css/site.css">
 </head>
 <body data-page="home">
@@ -19,65 +19,63 @@
 	<div data-site-header></div>
 
 	<main id="main" tabindex="-1">
-		<section class="hero" data-skyline>
-			<canvas class="hero__sky" aria-hidden="true"></canvas>
-			<div class="hero__copy">
-				<div class="wrap">
-					<p class="eyebrow">TFeL Enterprises · Skyline Collection</p>
-					<h1 class="hero__title">After hours<em data-way-name>in Purple-Pink</em></h1>
-					<a class="btn" href="shop.html?c=tfel-enterprises-skyline" data-way-link>Shop the collection</a>
-				</div>
-			</div>
-			<div class="hero__ways">
-				<div class="wrap" role="group" aria-label="Skyline colourway">
-					<span class="label">Colourway</span>
-					<button type="button" class="way" aria-pressed="true" data-way data-name="Purple-Pink" data-a="#7B3FE4" data-b="#FF5FA2" data-link="shop.html?c=tfel-enterprises-skyline&amp;q=Purple-Pink"><i style="background: linear-gradient(135deg, #7B3FE4, #FF5FA2)"></i>Purple-Pink</button>
-					<button type="button" class="way" aria-pressed="false" data-way data-name="Yellow-Blue" data-a="#2F6BFF" data-b="#FFC93C" data-link="shop.html?c=tfel-enterprises-skyline&amp;q=Yellow-Blue"><i style="background: linear-gradient(135deg, #2F6BFF, #FFC93C)"></i>Yellow-Blue</button>
-					<button type="button" class="way" aria-pressed="false" data-way data-name="Purple-Orange" data-a="#8A3FD1" data-b="#FF8A3D" data-link="shop.html?c=tfel-enterprises-skyline&amp;q=Purple-Orange"><i style="background: linear-gradient(135deg, #8A3FD1, #FF8A3D)"></i>Purple-Orange</button>
-					<button type="button" class="way" aria-pressed="false" data-way data-name="Grey-Cyan" data-a="#4D5566" data-b="#2FE0E8" data-link="shop.html?c=tfel-enterprises-skyline&amp;q=Grey-Cyan"><i style="background: linear-gradient(135deg, #4D5566, #2FE0E8)"></i>Grey-Cyan</button>
-					<button type="button" class="way" aria-pressed="false" data-way data-name="Red-Blue" data-a="#2C5BFF" data-b="#FF3B4E" data-link="shop.html?c=tfel-enterprises-skyline&amp;q=Red-Blue"><i style="background: linear-gradient(135deg, #2C5BFF, #FF3B4E)"></i>Red-Blue</button>
+		<!-- The lead collection comes from data/site.json ("featured"). Change it with scripts/feature.py. -->
+		<section class="wrap feature" data-feature>
+			<div class="feature__pic" data-feature-pic></div>
+			<div class="feature__copy">
+				<p class="eyebrow">TFeL Enterprises</p>
+				<h1 class="display" data-feature-title>Man I Love FeLo</h1>
+				<p class="lead" data-feature-line></p>
+				<div class="feature__actions">
+					<a class="btn" href="shop.html" data-feature-link>Shop the collection</a>
 				</div>
 			</div>
 		</section>
 
-		<nav class="tiles" aria-label="Collections" data-tiles></nav>
-
 		<section class="wrap section">
 			<div class="section__head">
-				<h2 class="section__title">The Skyline collection</h2>
-				<a class="link-arrow" href="shop.html?c=tfel-enterprises-skyline">View all</a>
+				<h2 class="section__title" data-feature-heading>The collection</h2>
+				<a class="link-arrow" href="shop.html" data-feature-link>View all</a>
 			</div>
-			<div class="grid" data-grid="tfel-enterprises-skyline" data-limit="8"></div>
+			<div class="grid grid--5" data-feature-grid></div>
+		</section>
+
+		<section class="band">
+			<div class="wrap section">
+				<div class="section__head">
+					<div>
+						<h2 class="section__title" data-second-title>TFeL Enterprises Premium</h2>
+						<p class="lead" style="margin-top: 8px" data-second-line></p>
+					</div>
+					<a class="link-arrow" href="shop.html" data-second-link>View all</a>
+				</div>
+				<div class="grid grid--3" data-second-grid></div>
+			</div>
+		</section>
+
+		<section class="wrap section" style="padding-top: 56px">
+			<div class="section__head">
+				<h2 class="section__title">More collections</h2>
+				<a class="link-arrow" href="shop.html">Shop all</a>
+			</div>
+			<div class="col-cards" data-more></div>
 		</section>
 
 		<section class="wrap">
-			<div class="teaser">
+			<div class="strip-cta" style="border-top: 1px solid var(--line)">
 				<div>
-					<p class="eyebrow">New · 1-on-1 coaching</p>
-					<h2>Learn the game from FeLo</h2>
-					<p>Send in your gameplay for a breakdown, or jump in a live session. Pick a package and apply in a couple of minutes.</p>
+					<h2 class="display">Call of Duty coaching</h2>
+					<p class="lead">1-on-1 sessions and VOD reviews with FeLo, a competitive CoD player for 11 years.</p>
 				</div>
-				<a class="btn" href="coaching.html">See coaching</a>
+				<div class="feature__actions">
+					<a class="btn" href="coaching.html">See coaching</a>
+					<a class="btn btn--ghost" href="watch.html">Watch streams</a>
+				</div>
 			</div>
-		</section>
-
-		<section class="wrap section">
-			<div class="section__head">
-				<h2 class="section__title">TFeL Enterprises Premium</h2>
-				<a class="link-arrow" href="shop.html?c=tfel-enterprises-premium">View all</a>
-			</div>
-			<div class="grid" data-grid="tfel-enterprises-premium" data-limit="4"></div>
-		</section>
-
-		<section class="wrap strip" aria-label="Good to know">
-			<div><h3>Made for you</h3><p>Every piece is printed when you order it, so each colour and size stays in stock.</p></div>
-			<div><h3>Sizes S to 5XL</h3><p>Tees go up to 5XL. Hoodies, crewnecks and tanks go up to 3XL. <a href="help.html#sizes">Size guide</a></p></div>
-			<div><h3>Questions?</h3><p>Shipping, returns and sizing are on the <a href="help.html">Help page</a>, or <a href="contact.html">message us</a>.</p></div>
 		</section>
 	</main>
 
 	<div data-site-footer></div>
-	<script src="js/skyline.js" defer></script>
 	<script type="module" src="js/pages/home.js"></script>
 </body>
 </html>

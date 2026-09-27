@@ -1,42 +1,61 @@
 # FeLo website
 
-The website for FeLo / TFeL Enterprises: merch, gaming coaching, About, Help and Contact.
-It's a dark, night-time look built around the Skyline collection. On the home page, a drawn city skyline changes colour for each Skyline colourway.
+The website for FeLo / TFeL Enterprises: merch, Call of Duty coaching, streams and videos, About, Help and Contact.
+It's black and white, built around Tyler's favourite collections: Man I Love FeLo (featured) and TFeL Enterprises Premium. The brand rules are in [`brand/BRAND.md`](brand/BRAND.md).
 
 This repo holds two things:
 
 - **`site/`**: the main website, in plain HTML, CSS and JavaScript. It works now; checkout and the forms get connected at the end.
-- **`theme/`**: a Shopify theme with the same look, kept as a backup in case we decide to run the site inside Shopify instead.
+- **`theme/`**: an older Shopify theme, kept as a backup in case we decide to run the site inside Shopify instead.
+
+## Day-to-day: one command
+
+Everything runs through `scripts/felo.py` (Python 3 and git only):
+
+| Command | Does |
+| --- | --- |
+| `python scripts/felo.py serve` | Preview at http://localhost:5173 (caching off, so edits show on refresh) |
+| `python scripts/felo.py refresh` | Pull the latest products (tfelent.com) and videos (YouTube) |
+| `python scripts/felo.py check` | Every check: broken links, bad data, hype words, off-brand colours, plus a to-do list of what's waiting on Tyler |
+| `python scripts/felo.py brand` | Only the wording and colour checks |
+| `python scripts/felo.py feature --list` | See the collections and which ones lead the home page |
+| `python scripts/felo.py feature <handle> --line "..."` | Make a collection lead the home page (for a new drop) |
+| `python scripts/felo.py ship -m "message"` | Refresh, check, then commit (push too, once a remote exists). Without `-m` it stops before committing |
+
+With Claude Code, the **`/felo-site`** skill (`.claude/skills/felo-site/`) runs the same steps and adds a visual check of every page at desktop and phone width, plus a wording review.
 
 ## The website (`site/`)
-
-### Preview it
-
-```
-python -m http.server 5173 --directory site
-```
-
-Then open http://localhost:5173. Pages must be served like this rather than double-clicked, because they load their data with `fetch`.
 
 ### Pages
 
 | Page | What it does |
 | --- | --- |
-| `index.html` | Skyline hero, collection tiles, Skyline and Premium grids, coaching teaser |
-| `shop.html` | Every product. Filters live in the URL, so links like `shop.html?c=b2a&t=Hoodie` can be shared |
+| `index.html` | Featured collection (Man I Love FeLo), its full row, Premium band, more collections, coaching strip |
+| `shop.html` | Every product. Collection tabs, type chips, search and sort, all kept in the URL, so links like `shop.html?c=man-i-love-felo&t=Hoodie` can be shared |
 | `product.html?p=<handle>` | Photos per colour, colour swatches, sizes (sold-out ones crossed out), add to cart |
 | `cart.html` | Change quantities, remove items, subtotal, checkout button |
-| `coaching.html` | Gaming coaching: packages, how it works, application form, FAQ |
+| `watch.html` | Twitch stream and chat embedded, latest YouTube videos (play in place), TikTok link |
+| `coaching.html` | Call of Duty coaching: availability, packages, how it works, application form, FAQ |
 | `about.html`, `help.html`, `contact.html`, `404.html` | About FeLo; FAQ, shipping, returns and sizes; contact form; not found |
 
-Every page shares one header, drop-alerts band and footer from `js/layout.js`.
+Every page shares one header and footer from `js/layout.js`.
 
 ### Where to change things
 
-- **Products**: run `python scripts/sync-products.py`. It copies the live product list from tfelent.com into `site/data/products.json`.
-- **Coaching packages, prices, steps and FAQ**: `site/data/coaching.json`. Set `price` to a number to show it.
-- **Colours and fonts**: the top of `site/css/site.css`.
-- **Anything with a yellow "Confirm with Tyler" or "Draft text" tag** is placeholder wording to replace.
+| What | Where |
+| --- | --- |
+| Products | `python scripts/felo.py refresh` (writes `site/data/products.json`; don't hand-edit) |
+| Videos | Same command (writes `site/data/videos.json`) |
+| Which collections lead, social links, Twitch channel | `site/data/site.json`, or `felo.py feature` |
+| Coaching packages, prices, open times, FAQ | `site/data/coaching.json` |
+| Colours and fonts | Top of `site/css/site.css`, and the palette in `brand/brand.json` |
+| Banned hype words | `brand/brand.json` |
+
+Anything with a yellow "Confirm with Tyler" or "Draft" tag is placeholder wording. `felo.py check` lists them all.
+
+### Still to build
+
+- **Chat room:** the Watch page embeds Twitch chat for now. A site-only chat needs a server or a hosted chat service.
 
 ### What's left to connect (at the end)
 

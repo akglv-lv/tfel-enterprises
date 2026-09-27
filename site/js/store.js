@@ -20,6 +20,24 @@ export function getCatalog() {
 	return catalogPromise;
 }
 
+// Site settings: which collection leads the home page, social links. Edited by scripts/feature.py.
+let sitePromise;
+export function getSite() {
+	sitePromise ??= fetch("data/site.json").then((r) => {
+		if (!r.ok) throw new Error(`site.json failed to load (${r.status})`);
+		return r.json();
+	});
+	return sitePromise;
+}
+
+// Collections in the order the site shows them: featured, second, then everything else.
+export async function orderedCollections() {
+	const [{ collections }, site] = await Promise.all([getCatalog(), getSite()]);
+	const first = [site.featured?.collection, site.second?.collection].filter(Boolean);
+	const rank = (c) => (first.includes(c.handle) ? first.indexOf(c.handle) : first.length + collections.indexOf(c));
+	return [...collections].sort((a, b) => rank(a) - rank(b));
+}
+
 export async function getProducts() {
 	return (await getCatalog()).products;
 }

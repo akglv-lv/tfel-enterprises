@@ -4,7 +4,7 @@
     {
       "name": "felo-site",
       "runtimeExecutable": "python",
-      "runtimeArgs": ["-m", "http.server", "5173", "--directory", "site"],
+      "runtimeArgs": ["scripts/felo.py", "serve"],
       "port": 5173
     }
   ]

@@ -31,12 +31,10 @@ document.addEventListener("click", (e) => {
 	input.dispatchEvent(new Event("change", { bubbles: true }));
 });
 
+// Only tags that change a buying decision. Collection names are already on the page around the card.
 export function ribbonFor(product) {
-	const v = product.variants;
 	if (!isAvailable(product)) return "Sold out";
-	if (v.some((x) => x.compare_at_price && Number(x.compare_at_price) > Number(x.price))) return "Sale";
-	if (product.collection === "tfel-enterprises-skyline") return "Skyline";
-	if (product.collection === "tfel-enterprises-premium") return "Premium";
+	if (product.variants.some((x) => x.compare_at_price && Number(x.compare_at_price) > Number(x.price))) return "Sale";
 	return "";
 }
 
@@ -47,9 +45,8 @@ export function productCard(product) {
 	return `
 		<a class="card" href="product.html?p=${encodeURIComponent(product.handle)}">
 			<div class="card__pic">
-				${ribbon ? `<span class="ribbon">${ribbon}</span>` : ""}
-				${img ? `<img src="${sized(img, 600)}" srcset="${sized(img, 400)} 400w, ${sized(img, 600)} 600w, ${sized(img, 900)} 900w" sizes="(min-width: 1100px) 280px, (min-width: 560px) 33vw, 50vw" alt="${esc(product.title)}" loading="lazy">` : ""}
-				<span class="card__go">View</span>
+				${ribbon ? `<span class="ribbon ribbon--red">${ribbon}</span>` : ""}
+				${img ? `<img src="${sized(img, 600)}" srcset="${sized(img, 400)} 400w, ${sized(img, 600)} 600w, ${sized(img, 900)} 900w" sizes="(min-width: 1100px) 300px, (min-width: 560px) 33vw, 50vw" alt="${esc(product.title)}" loading="lazy">` : ""}
 			</div>
 			<div class="card__row">
 				<h3 class="card__title">${esc(shortTitle(product.title))}</h3>

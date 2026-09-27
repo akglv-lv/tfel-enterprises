@@ -1,0 +1,33 @@
+{
+	"_note": "Read by scripts/check-site.py. Edit these lists to change what the brand check flags. See brand/BRAND.md for the why.",
+	"banned_phrases": [
+		"insane",
+		"level up",
+		"next level",
+		"left the building",
+		"in your ear",
+		"after hours",
+		"unhinged",
+		"legendary",
+		"epic",
+		"crazy",
+		"grind",
+		"vibes",
+		"drip",
+		"goated",
+		"elevate",
+		"unleash",
+		"game-changer",
+		"don't miss out",
+		"limited time only"
+	],
+	"palette": [
+		"#ffffff", "#fff", "#111111", "#6b6b6b", "#f4f4f2", "#e6e6e6", "#0e0e0e", "#f5f5f3", "#9a9a96",
+		"#d2231f", "#1f8a4c",
+		"#b5b5b5", "#262626", "#333", "#444", "#aaa",
+		"#5a4300", "#ffe58a", "#4bd48a", "#f2c14e"
+	],
+	"authored_files": ["site/*.html", "site/js/*.js", "site/js/pages/*.js", "site/css/*.css", "site/data/site.json", "site/data/coaching.json"],
+	"colour_exempt_files": ["site/js/swatches.js", "site/favicon.svg"],
+	"videos_stale_after_days": 14
+}

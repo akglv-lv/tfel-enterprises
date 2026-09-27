@@ -1,0 +1,20 @@
+{
+	"_note": "Edit with scripts/feature.py or by hand. Collection handles must match site/data/products.json.",
+	"featured": {
+		"collection": "man-i-love-felo",
+		"title": "Man I Love FeLo",
+		"line": "The M.I.L.F collection. Tees, hoodies, crewnecks, hats and tanks."
+	},
+	"second": {
+		"collection": "tfel-enterprises-premium",
+		"title": "TFeL Enterprises Premium",
+		"line": "The TFeL Enterprises script logo, small and clean."
+	},
+	"more": ["tfel-enterprises-skyline", "elite-champion", "b2a"],
+	"channels": {
+		"twitch": "FeLo",
+		"youtube": "https://www.youtube.com/@TylerFeLo",
+		"tiktok": "https://tiktok.com/@tylerfelo",
+		"x": "https://x.com/FeLo"
+	}
+}

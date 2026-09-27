@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<title>Watch | FeLo</title>
+	<meta name="description" content="FeLo's Twitch stream and chat, plus his latest YouTube videos.">
+	<meta name="theme-color" content="#ffffff">
+	<link rel="icon" href="favicon.svg" type="image/svg+xml">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,500..900,0..100&family=Geist:wght@400..700&family=Geist+Mono:wght@400;500&display=swap">
+	<link rel="stylesheet" href="css/site.css">
+</head>
+<body data-page="watch">
+	<a class="skip-link" href="#main">Skip to content</a>
+	<div data-site-header></div>
+
+	<main id="main" tabindex="-1">
+		<section class="wrap section" style="padding-top: 36px">
+			<div class="section__head">
+				<div class="page-head" style="margin: 0">
+					<h1 class="page-title">Watch</h1>
+					<p class="lead">Live on Twitch every day. The player and chat below go live when he does.</p>
+				</div>
+				<a class="link-arrow" href="https://twitch.tv/FeLo" target="_blank" rel="noopener" data-twitch-link>Open on Twitch</a>
+			</div>
+			<!-- Twitch's player and chat. "parent" must match the site's domain, so it's filled in by script. -->
+			<div class="watch" data-watch>
+				<div class="watch__player" data-player></div>
+				<div class="watch__chat" data-chat></div>
+			</div>
+		</section>
+
+		<section class="wrap section">
+			<div class="section__head">
+				<h2 class="section__title">Latest videos</h2>
+				<a class="link-arrow" href="https://www.youtube.com/@TylerFeLo" target="_blank" rel="noopener" data-youtube-link>YouTube channel</a>
+			</div>
+			<div class="video-grid" data-videos></div>
+		</section>
+
+		<section class="wrap section">
+			<div class="strip-cta" style="border-top: 1px solid var(--line); padding-bottom: 0">
+				<div>
+					<h2 class="display">Clips on TikTok</h2>
+					<p class="lead">Short clips from the streams.</p>
+				</div>
+				<a class="btn btn--ghost" href="https://tiktok.com/@tylerfelo" target="_blank" rel="noopener" data-tiktok-link>Open TikTok</a>
+			</div>
+		</section>
+	</main>
+
+	<div data-site-footer></div>
+	<script type="module" src="js/pages/watch.js"></script>
+</body>
+</html>

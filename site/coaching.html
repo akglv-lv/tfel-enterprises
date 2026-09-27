@@ -4,12 +4,12 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 	<title>Coaching | FeLo</title>
-	<meta name="description" content="1-on-1 gaming coaching with FeLo: VOD reviews, live sessions and monthly plans. Apply in a couple of minutes.">
-	<meta name="theme-color" content="#0A0B13">
+	<meta name="description" content="Call of Duty coaching with FeLo: VOD reviews, live 1-on-1 sessions and monthly coaching.">
+	<meta name="theme-color" content="#0e0e0e">
 	<link rel="icon" href="favicon.svg" type="image/svg+xml">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@400;500&display=swap">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,500..900,0..100&family=Geist:wght@400..700&family=Geist+Mono:wght@400;500&display=swap">
 	<link rel="stylesheet" href="css/site.css">
 </head>
 <body data-page="coaching">
@@ -19,15 +19,17 @@
 	<main id="main" tabindex="-1">
 		<section class="coach-hero">
 			<div class="wrap">
-				<p class="eyebrow" style="color: var(--ink)">FeLo Coaching</p>
-				<h1>Get better<em>with FeLo in your ear</em></h1>
-				<p class="lead" style="color: var(--ink); opacity: 0.85">1-on-1 gaming coaching from FeLo. Send in a match for a breakdown, or play live while he coaches you through it.</p>
-				<div class="hud" aria-label="Coaching formats">
-					<span>VOD reviews</span><span>Live 1-on-1</span><span>Monthly plans</span><span>All skill levels</span>
-				</div>
-				<div class="actions">
-					<a class="btn" href="#apply">Apply now</a>
-					<a class="btn btn--ghost" href="#packages">See packages</a>
+				<p class="eyebrow" style="color: var(--on-black-grey)">Coaching</p>
+				<h1 class="display">Call of Duty coaching with FeLo</h1>
+				<p class="lead">VOD reviews and live 1-on-1 sessions with a competitive CoD player of 11 years.</p>
+				<ul class="facts">
+					<li><b>11 years</b> competitive CoD</li>
+					<li><b>Daily</b> streams on Twitch</li>
+				</ul>
+				<div class="availability" data-availability></div>
+				<div class="feature__actions">
+					<a class="btn btn--light" href="#apply">Apply</a>
+					<a class="btn btn--ghost" style="color: var(--on-black); border-color: #444" href="#packages">See packages</a>
 				</div>
 			</div>
 		</section>
@@ -40,7 +42,7 @@
 		<section class="wrap section" id="packages">
 			<div class="section__head">
 				<h2 class="section__title">Packages</h2>
-				<span class="placeholder-note" data-price-note hidden>Prices coming soon</span>
+				<span class="placeholder-note" data-price-note hidden>Prices to be set</span>
 			</div>
 			<div class="packages" data-packages></div>
 		</section>
@@ -53,15 +55,16 @@
 		<section class="wrap section" id="apply">
 			<div class="apply">
 				<div class="apply__side">
-					<h2 class="section__title">Apply for coaching</h2>
-					<p class="lead">Tell FeLo about your game. Spots are limited, so the more detail you give, the better.</p>
+					<h2 class="section__title">Apply</h2>
+					<p class="lead">The more detail you give, the more useful the first session is.</p>
+					<div data-slots></div>
 					<p class="meta">We reply by email. If you're under 18, a parent or guardian should know you're applying.</p>
 				</div>
 				<div>
 					<form class="form" data-apply-form>
 						<div class="form__row">
 							<div class="field">
-								<label class="label" for="ApName">Your name</label>
+								<label class="label" for="ApName">Name</label>
 								<input id="ApName" name="name" type="text" autocomplete="name" required>
 							</div>
 							<div class="field">
@@ -71,16 +74,9 @@
 						</div>
 						<div class="form__row">
 							<div class="field">
-								<label class="label" for="ApTag">Gamer tag</label>
+								<label class="label" for="ApTag">Gamertag / Activision ID</label>
 								<input id="ApTag" name="gamertag" type="text" required>
 							</div>
-							<div class="field">
-								<label class="label" for="ApGame">Game</label>
-								<input id="ApGame" name="game" type="text" list="GameList" required>
-								<datalist id="GameList" data-games></datalist>
-							</div>
-						</div>
-						<div class="form__row">
 							<div class="field">
 								<label class="label" for="ApPlatform">Platform</label>
 								<select id="ApPlatform" name="platform" required>
@@ -88,13 +84,19 @@
 									<option>PC</option>
 									<option>PlayStation</option>
 									<option>Xbox</option>
-									<option>Nintendo Switch</option>
-									<option>Mobile</option>
+								</select>
+							</div>
+						</div>
+						<div class="form__row">
+							<div class="field">
+								<label class="label" for="ApMode">Mode you play most</label>
+								<select id="ApMode" name="mode" required data-modes>
+									<option value="">Choose one</option>
 								</select>
 							</div>
 							<div class="field">
-								<label class="label" for="ApRank">Current rank or level</label>
-								<input id="ApRank" name="rank" type="text" placeholder="e.g. Platinum 2, or just casual">
+								<label class="label" for="ApRank">Current rank</label>
+								<input id="ApRank" name="rank" type="text" placeholder="e.g. Diamond 2, or unranked">
 							</div>
 						</div>
 						<div class="form__row">
@@ -111,8 +113,8 @@
 							</div>
 						</div>
 						<div class="field">
-							<label class="label" for="ApGoals">What do you want to get better at?</label>
-							<textarea id="ApGoals" name="goals" minlength="20" required placeholder="e.g. I win my early fights but keep losing end game. I want to rotate better."></textarea>
+							<label class="label" for="ApGoals">What do you want to improve?</label>
+							<textarea id="ApGoals" name="goals" minlength="20" required placeholder="e.g. I win my first fights in SnD but lose most clutches."></textarea>
 						</div>
 						<div class="field">
 							<label class="label" for="ApClip">Link to a clip or VOD (optional)</label>
@@ -126,7 +128,7 @@
 					</form>
 					<div class="form__done" hidden>
 						<strong>Application sent</strong>
-						<p>Thanks! FeLo's team will email you about times and next steps.</p>
+						<p>Thanks. You'll get an email about times and next steps.</p>
 						<p class="meta" data-not-connected>Test mode: applications aren't connected to an inbox yet, so this one wasn't delivered.</p>
 					</div>
 				</div>

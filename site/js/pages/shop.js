@@ -1,5 +1,5 @@
 import "../layout.js";
-import { colourOption, getCatalog, lowestPrice } from "../store.js";
+import { colourOption, getCatalog, lowestPrice, orderedCollections } from "../store.js";
 import { esc, loadError, productCard, skeletonCards } from "../ui.js";
 
 // Filters live in the URL (?c=collection&t=type&q=search&sort=...) so any view can be shared as a link.
@@ -13,7 +13,7 @@ const state = {
 };
 
 const grid = document.querySelector("[data-grid]");
-const tiles = document.querySelector("[data-tiles]");
+const tabs = document.querySelector("[data-tabs]");
 const types = document.querySelector("[data-types]");
 const search = document.querySelector("[data-search]");
 const sort = document.querySelector("[data-sort]");
@@ -23,7 +23,8 @@ search.value = state.q;
 sort.value = state.sort;
 grid.innerHTML = skeletonCards(8);
 
-let catalog;
+let products;
+let collections;
 
 function syncUrl() {
 	const p = new URLSearchParams();
@@ -33,28 +34,37 @@ function syncUrl() {
 }
 
 function render() {
-	const { collections, products } = catalog;
 	const col = collections.find((c) => c.handle === state.c);
 	title.textContent = col ? col.title : "Shop all";
 	document.title = `${col ? col.title : "Shop"} | FeLo`;
 
-	tiles.innerHTML =
-		`<button class="tile" type="button" data-c="" aria-pressed="${!state.c}"><b>Everything</b><small>${products.length} pieces</small></button>` +
-		collections
-			.map((c) => `<button class="tile" type="button" data-c="${esc(c.handle)}" aria-pressed="${state.c === c.handle}"><b>${esc(c.title)}</b><small>${c.count} piece${c.count === 1 ? "" : "s"}</small></button>`)
-			.join("");
+	// Lead collections first (from data/site.json), then "All", then the rest.
+	const tab = (handle, label, n) =>
+		`<button class="tab" type="button" data-c="${esc(handle)}" aria-pressed="${state.c === handle}">${esc(label)}<small>${n}</small></button>`;
+	const lead = collections.slice(0, 2);
+	const rest = collections.slice(2);
+	tabs.innerHTML =
+		lead.map((c) => tab(c.handle, c.title, c.count)).join("") +
+		tab("", "All", products.length) +
+		rest.map((c) => tab(c.handle, c.title, c.count)).join("");
 
 	const inCollection = products.filter((p) => !state.c || p.collection === state.c);
 	types.innerHTML =
-		`<button class="chip" type="button" data-t="" aria-pressed="${!state.t}">All <small>${inCollection.length}</small></button>` +
+		`<button class="chip" type="button" data-t="" aria-pressed="${!state.t}">All types</button>` +
 		TYPES.map((t) => {
 			const n = inCollection.filter((p) => p.type === t).length;
-			return n ? `<button class="chip" type="button" data-t="${t}" aria-pressed="${state.t === t}">${t}s <small>${n}</small></button>` : "";
+			return n ? `<button class="chip" type="button" data-t="${t}" aria-pressed="${state.t === t}">${t}s<small>${n}</small></button>` : "";
 		}).join("");
 
 	const q = state.q.trim().toLowerCase();
-	let list = inCollection.filter((p) => (!state.t || p.type === state.t) && (!q || p.title.toLowerCase().includes(q)));
-	const byOrder = (a, b) => products.indexOf(a) - products.indexOf(b);
+	const list = inCollection.filter((p) => (!state.t || p.type === state.t) && (!q || p.title.toLowerCase().includes(q)));
+
+	// "Featured" follows the collection order above, so the lead collections come first.
+	const colRank = (p) => {
+		const i = collections.findIndex((c) => c.handle === p.collection);
+		return i < 0 ? collections.length : i;
+	};
+	const byOrder = (a, b) => colRank(a) - colRank(b) || products.indexOf(a) - products.indexOf(b);
 	const colours = (p) => colourOption(p)?.values.length || 0;
 	const sorters = {
 		featured: byOrder,
@@ -63,7 +73,7 @@ function render() {
 		colours: (a, b) => colours(b) - colours(a) || byOrder(a, b),
 		az: (a, b) => a.title.localeCompare(b.title),
 	};
-	list = [...list].sort(sorters[state.sort] || byOrder);
+	list.sort(sorters[state.sort] || byOrder);
 
 	count.textContent = `${list.length} piece${list.length === 1 ? "" : "s"}${q ? ` matching “${state.q.trim()}”` : ""}`;
 	grid.innerHTML = list.length
@@ -98,9 +108,10 @@ sort.addEventListener("change", () => {
 	render();
 });
 
-getCatalog()
-	.then((data) => {
-		catalog = data;
+Promise.all([getCatalog(), orderedCollections()])
+	.then(([data, cols]) => {
+		products = data.products;
+		collections = cols;
 		render();
 	})
 	.catch(() => loadError(grid, "products"));
