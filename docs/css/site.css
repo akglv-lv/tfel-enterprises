@@ -1,14 +1,16 @@
-/* FeLo / TFeL Enterprises site styles.
+/* FeLo / TFeL Enterprises site styles. Dark page (the owner asked for a dark background).
    Black and white so the clothes do the talking. One accent: the red from the M.I.L.F print.
    Light page on purpose: the product photos are shot on white and sit seamlessly on it.
    Brand rules live in brand/BRAND.md; scripts/check-site.py flags colours that drift from these tokens. */
 :root {
-	--paper: #ffffff;
-	--ink: #111111;
-	--grey: #6b6b6b;
-	--soft: #f4f4f2;
-	--line: #e6e6e6;
-	--black: #0e0e0e;
+	color-scheme: dark;
+	--photo: #ffffff;
+	--paper: #121212;
+	--ink: #f2f2ef;
+	--grey: #9a9a96;
+	--soft: #1c1c1c;
+	--line: #2a2a2a;
+	--black: #0a0a0a;
 	--on-black: #f5f5f3;
 	--on-black-grey: #9a9a96;
 	--red: #d2231f;
@@ -110,7 +112,7 @@ textarea { resize: vertical; min-height: 120px; }
 .check input { margin-top: 4px; accent-color: var(--ink); }
 
 /* Header */
-.site-top { position: sticky; top: 0; z-index: 20; background: rgba(255, 255, 255, 0.94); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+.site-top { position: sticky; top: 0; z-index: 20; background: rgba(18, 18, 18, 0.92); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
 .site-header { position: relative; }
 .site-header__bar { display: flex; align-items: center; gap: 28px; min-height: var(--header-h); }
 .logo { text-decoration: none; display: block; flex: none; }
@@ -139,7 +141,7 @@ textarea { resize: vertical; min-height: 120px; }
 
 /* Home: featured collection */
 .feature { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); align-items: center; gap: clamp(24px, 5vw, 72px); padding-block: clamp(24px, 4vw, 48px); }
-.feature__pic { aspect-ratio: 1 / 1; max-width: 100%; background: var(--paper); overflow: hidden; }
+.feature__pic { aspect-ratio: 1 / 1; max-width: 100%; background: var(--photo); overflow: hidden; }
 .feature__pic img { width: 100%; height: 100%; object-fit: contain; }
 .feature__copy { display: grid; gap: 18px; justify-items: start; }
 .feature__copy .display { font-size: clamp(44px, 7vw, 96px); line-height: 0.92; }
@@ -153,7 +155,7 @@ textarea { resize: vertical; min-height: 120px; }
 .band .lead, .band .meta, .band .card__sub, .band .eyebrow { color: var(--on-black-grey); }
 .band .section__title { color: var(--on-black); }
 .band .link-arrow { color: var(--on-black); }
-.band .card__pic { background: #ffffff; }
+.band .card__pic { background: var(--photo); }
 
 /* Product grid */
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 36px 20px; }
@@ -161,7 +163,7 @@ textarea { resize: vertical; min-height: 120px; }
 .grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .card { display: flex; flex-direction: column; gap: 8px; text-decoration: none; }
 .card:hover { color: inherit; }
-.card__pic { position: relative; aspect-ratio: 1 / 1; max-width: 100%; background: var(--paper); overflow: hidden; }
+.card__pic { position: relative; aspect-ratio: 1 / 1; max-width: 100%; background: var(--photo); overflow: hidden; }
 .card__pic img { width: 100%; height: 100%; object-fit: contain; transition: transform 0.4s ease; }
 .card:hover .card__pic img { transform: scale(1.04); }
 .ribbon { position: absolute; left: 0; top: 0; z-index: 1; font: 500 11px/1 var(--mono); letter-spacing: 0.04em; text-transform: uppercase; background: var(--ink); color: var(--paper); padding: 6px 8px; }
@@ -172,11 +174,12 @@ textarea { resize: vertical; min-height: 120px; }
 .card:hover .card__title { text-decoration: underline; text-underline-offset: 3px; }
 .card__sub { font: 400 12px/1.4 var(--mono); color: var(--grey); }
 .card--skeleton .card__pic { background: var(--soft); }
+.feature__pic, .card__pic, .product__main, .col-card__pic { border-radius: var(--radius); }
 
 /* More collections */
 .col-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
 .col-card { display: grid; gap: 10px; text-decoration: none; }
-.col-card__pic { aspect-ratio: 4 / 3; max-width: 100%; background: var(--soft); overflow: hidden; display: grid; place-items: center; }
+.col-card__pic { aspect-ratio: 4 / 3; max-width: 100%; background: var(--photo); overflow: hidden; display: grid; place-items: center; }
 .col-card__pic img { width: 78%; height: 78%; object-fit: contain; mix-blend-mode: multiply; transition: transform 0.4s ease; }
 .col-card:hover .col-card__pic img { transform: scale(1.04); }
 .col-card b { font: 700 19px/1.1 var(--serif); font-variation-settings: "SOFT" 100; }
@@ -201,10 +204,10 @@ textarea { resize: vertical; min-height: 120px; }
 /* Product page */
 .product { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 64px); padding-block: 28px 56px; align-items: start; }
 .product__media { display: grid; gap: 10px; position: sticky; top: calc(var(--header-h) + 16px); }
-.product__main { background: var(--paper); aspect-ratio: 1 / 1; max-width: 100%; }
+.product__main { background: var(--photo); aspect-ratio: 1 / 1; max-width: 100%; }
 .product__main img { width: 100%; height: 100%; object-fit: contain; }
 .product__thumbs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
-.thumb { flex: 0 0 68px; aspect-ratio: 1 / 1; padding: 0; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); overflow: hidden; }
+.thumb { flex: 0 0 68px; aspect-ratio: 1 / 1; padding: 0; border: 1px solid var(--line); border-radius: var(--radius); background: var(--photo); overflow: hidden; }
 .thumb img { width: 100%; height: 100%; object-fit: contain; }
 .thumb.is-active { border-color: var(--ink); }
 .product__info { display: grid; gap: 20px; }
@@ -223,9 +226,9 @@ textarea { resize: vertical; min-height: 120px; }
 .pill:hover { border-color: var(--ink); }
 .option__values input:checked + .pill { background: var(--ink); color: var(--paper); border-color: var(--ink); }
 .option__values input:focus-visible + label { outline: 2px solid var(--ink); outline-offset: 2px; }
-.pill.is-unavailable { color: #b5b5b5; text-decoration: line-through; }
+.pill.is-unavailable { color: #5c5c5a; text-decoration: line-through; }
 .swatch { width: 34px; height: 34px; border-radius: 50%; padding: 3px; border: 1px solid var(--line); cursor: pointer; position: relative; }
-.swatch i { display: block; width: 100%; height: 100%; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12); }
+.swatch i { display: block; width: 100%; height: 100%; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2); }
 .swatch.is-unavailable::after { content: ""; position: absolute; left: 50%; top: 3px; bottom: 3px; width: 1.5px; background: var(--grey); transform: rotate(45deg); }
 .option__values input:checked + .swatch { border-color: var(--ink); box-shadow: 0 0 0 1px var(--ink); }
 .product__buy { display: flex; gap: 10px; }
@@ -251,7 +254,7 @@ textarea { resize: vertical; min-height: 120px; }
 .cart__grid { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 48px; align-items: start; }
 .cart__lines { display: grid; border-top: 1px solid var(--line); }
 .line { display: grid; grid-template-columns: 96px minmax(0, 1fr) auto; gap: 18px; padding-block: 18px; border-bottom: 1px solid var(--line); align-items: start; }
-.line__pic { background: var(--paper); aspect-ratio: 1 / 1; border: 1px solid var(--line); }
+.line__pic { background: var(--photo); aspect-ratio: 1 / 1; border: 1px solid var(--line); }
 .line__pic img { width: 100%; height: 100%; object-fit: contain; }
 .line__info { display: grid; gap: 4px; }
 .line__title { font-weight: 500; text-decoration: none; }

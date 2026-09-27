@@ -27,7 +27,7 @@ getSite().then(async (site) => {
 
 	const section = document.querySelector("[data-discord]");
 	if (section) {
-		section.querySelector("[data-discord-widget]").src = `https://discord.com/widget?id=${id}&theme=light`;
+		section.querySelector("[data-discord-widget]").src = `https://discord.com/widget?id=${id}&theme=dark`;
 		const join = section.querySelector("[data-discord-join]");
 		if (invite) join.href = invite;
 		else join.hidden = true;

@@ -3,7 +3,7 @@
 Short version: **black and white, the clothes do the talking, say things plainly.**
 
 ## Look
-- **Colours:** white page, near-black ink, grey for secondary text. One accent, **M.I.L.F red `#D2231F`**, used for small things only: sale and sold-out tags, the cart count, hover. Black bands (`#0E0E0E`) set off the Premium section, coaching and the footer.
+- **Colours:** dark page (`#121212`), off-white text, grey for secondary text. Product photos keep their white backgrounds as clean tiles. One accent, **M.I.L.F red `#D2231F`**, used for small things only: sale and sold-out tags, the cart count, hover. Black bands (`#0E0E0E`) set off the Premium section, coaching and the footer.
 - **No** gradients, neon, glows or purple/pink. That was the old look, and it read as cringey.
 - **Type:**
   - **Fraunces**, heavy and soft, for titles only, in sentence case. It echoes the retro lettering on the M.I.L.F tee.
