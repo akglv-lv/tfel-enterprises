@@ -10,11 +10,20 @@
 		"title": "TFeL Enterprises Premium",
 		"line": "The TFeL Enterprises script logo, small and clean."
 	},
-	"more": ["tfel-enterprises-skyline", "elite-champion", "b2a"],
+	"more": [
+		"tfel-enterprises-skyline",
+		"elite-champion",
+		"b2a"
+	],
 	"channels": {
 		"twitch": "FeLo",
 		"youtube": "https://www.youtube.com/@TylerFeLo",
 		"tiktok": "https://tiktok.com/@tylerfelo",
 		"x": "https://x.com/FeLo"
+	},
+	"discord": {
+		"_note": "Tyler: Discord > Server Settings > Widget > Enable Server Widget, then paste the Server ID here as a string. Optional invite: a permanent invite link; otherwise the widget's own invite is used.",
+		"serverId": null,
+		"invite": null
 	}
 }
