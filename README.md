@@ -8,6 +8,10 @@ This repo holds two things:
 - **`docs/`**: the main website, in plain HTML, CSS and JavaScript. It works now; checkout and the forms get connected at the end.
 - **`theme/`**: an older Shopify theme, kept as a backup in case we decide to run the site inside Shopify instead.
 
+## Publishing
+
+The live site is **https://akglv-lv.github.io/tfel-enterprises/**. GitHub Pages serves the `docs/` folder of `main`, so **every push to main updates it** within a minute or two. That includes a push from `felo.py ship`, a plain `git push`, or an edit on github.com.
+
 ## Day-to-day: one command
 
 Everything runs through `scripts/felo.py` (Python 3 and git only):
