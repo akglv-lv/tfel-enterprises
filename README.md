@@ -5,7 +5,7 @@ It's black and white, built around Tyler's favourite collections: Man I Love FeL
 
 This repo holds two things:
 
-- **`site/`**: the main website, in plain HTML, CSS and JavaScript. It works now; checkout and the forms get connected at the end.
+- **`docs/`**: the main website, in plain HTML, CSS and JavaScript. It works now; checkout and the forms get connected at the end.
 - **`theme/`**: an older Shopify theme, kept as a backup in case we decide to run the site inside Shopify instead.
 
 ## Day-to-day: one command
@@ -24,7 +24,7 @@ Everything runs through `scripts/felo.py` (Python 3 and git only):
 
 With Claude Code, the **`/felo-site`** skill (`.claude/skills/felo-site/`) runs the same steps and adds a visual check of every page at desktop and phone width, plus a wording review.
 
-## The website (`site/`)
+## The website (`docs/`)
 
 ### Pages
 
@@ -44,11 +44,11 @@ Every page shares one header and footer from `js/layout.js`.
 
 | What | Where |
 | --- | --- |
-| Products | `python scripts/felo.py refresh` (writes `site/data/products.json`; don't hand-edit) |
-| Videos | Same command (writes `site/data/videos.json`) |
-| Which collections lead, social links, Twitch channel | `site/data/site.json`, or `felo.py feature` |
-| Coaching packages, prices, open times, FAQ | `site/data/coaching.json` |
-| Colours and fonts | Top of `site/css/site.css`, and the palette in `brand/brand.json` |
+| Products | `python scripts/felo.py refresh` (writes `docs/data/products.json`; don't hand-edit) |
+| Videos | Same command (writes `docs/data/videos.json`) |
+| Which collections lead, social links, Twitch channel | `docs/data/site.json`, or `felo.py feature` |
+| Coaching packages, prices, open times, FAQ | `docs/data/coaching.json` |
+| Colours and fonts | Top of `docs/css/site.css`, and the palette in `brand/brand.json` |
 | Banned hype words | `brand/brand.json` |
 
 Anything with a yellow "Confirm with Tyler" or "Draft" tag is placeholder wording. `felo.py check` lists them all.
@@ -61,15 +61,15 @@ Anything with a yellow "Confirm with Tyler" or "Draft" tag is placeholder wordin
 
 Only two files talk to the outside world, so connecting means editing just these:
 
-- **`site/js/store.js` → `checkout()`**: today it shows "Checkout isn't open yet".
+- **`docs/js/store.js` → `checkout()`**: today it shows "Checkout isn't open yet".
   - With Shopify: create a cart through the Storefront API using the variant ids already in `products.json`, then send the visitor to its `checkoutUrl`.
   - Without Shopify: send the cart to a small Stripe Checkout function, and pass orders to Printful.
-- **`site/js/forms.js` → `send()`**: the coaching application, contact and drop-alert forms.
+- **`docs/js/forms.js` → `send()`**: the coaching application, contact and drop-alert forms.
   - Forms can go to Formspree or Netlify Forms.
   - Drop alerts can go to a mailing tool such as Mailchimp or Klaviyo.
   - Coaching can also link to Calendly for booking.
 
-Hosting: `site/` is a plain folder, so Netlify, Cloudflare Pages or GitHub Pages can serve it for free. Then point the domain at it.
+Hosting: `docs/` is a plain folder, so Netlify, Cloudflare Pages or GitHub Pages can serve it for free. Then point the domain at it.
 
 ---
 

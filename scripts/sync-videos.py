@@ -1,4 +1,4 @@
-"""Copies FeLo's latest YouTube uploads into site/data/videos.json for the Watch page.
+"""Copies FeLo's latest YouTube uploads into docs/data/videos.json for the Watch page.
 
     python scripts/sync-videos.py
 
@@ -17,7 +17,7 @@ from pathlib import Path
 
 CHANNEL_ID = "UCua2C1VPx_NNVGt8cgSqzmA"  # youtube.com/@TylerFeLo
 LIMIT = 24
-OUT = Path(__file__).resolve().parent.parent / "site" / "data" / "videos.json"
+OUT = Path(__file__).resolve().parent.parent / "docs" / "data" / "videos.json"
 
 
 def fetch_page():

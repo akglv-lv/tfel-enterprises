@@ -26,7 +26,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-SITE = ROOT / "site"
+SITE = ROOT / "docs"
 
 errors = []
 warnings = []
@@ -98,10 +98,10 @@ def check_catalog():
 	for key in ("featured", "second"):
 		h = (site.get(key) or {}).get("collection")
 		if h and h not in handles:
-			errors.append(f"site/data/site.json: {key} collection '{h}' isn't in products.json (have: {', '.join(sorted(handles))})")
+			errors.append(f"docs/data/site.json: {key} collection '{h}' isn't in products.json (have: {', '.join(sorted(handles))})")
 	for h in site.get("more", []):
 		if h not in handles:
-			errors.append(f"site/data/site.json: 'more' lists unknown collection '{h}'")
+			errors.append(f"docs/data/site.json: 'more' lists unknown collection '{h}'")
 	no_img = [p["title"] for p in products if not p["images"]]
 	if no_img:
 		warnings.append(f"{len(no_img)} product(s) have no photo: {', '.join(no_img)}")
@@ -153,7 +153,7 @@ def check_placeholders(brand):
 	coaching = load_json(SITE / "data" / "coaching.json") or {}
 	unpriced = [p["name"] for p in coaching.get("packages", []) if p.get("price") is None]
 	if unpriced:
-		warnings.append(f"Coaching prices not set: {', '.join(unpriced)} (site/data/coaching.json)")
+		warnings.append(f"Coaching prices not set: {', '.join(unpriced)} (docs/data/coaching.json)")
 	status = coaching.get("availability", {}).get("status")
 	info.append(f"Coaching availability: {status}, {len(coaching.get('availability', {}).get('slots', []))} open time(s) listed")
 
@@ -161,7 +161,7 @@ def check_placeholders(brand):
 def check_videos(brand):
 	v = load_json(SITE / "data" / "videos.json", required=False)
 	if not v:
-		warnings.append("No site/data/videos.json yet. Run: python scripts/felo.py refresh")
+		warnings.append("No docs/data/videos.json yet. Run: python scripts/felo.py refresh")
 		return
 	try:
 		age = (datetime.now(timezone.utc) - datetime.fromisoformat(v["synced_at"])).days

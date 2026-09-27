@@ -1,11 +1,11 @@
 ---
 name: felo-site
-description: Look after the FeLo / TFeL Enterprises website in site/. Use for refreshing products or videos, checking and shipping the site, reviewing wording and colours against the brand rules, or changing which collection leads the home page. Triggers include "refresh the site", "ship it", "check the site", "is anything cringey", "feature <collection>", "update videos", "new drop".
+description: Look after the FeLo / TFeL Enterprises website in docs/. Use for refreshing products or videos, checking and shipping the site, reviewing wording and colours against the brand rules, or changing which collection leads the home page. Triggers include "refresh the site", "ship it", "check the site", "is anything cringey", "feature <collection>", "update videos", "new drop".
 ---
 
 # FeLo site playbook
 
-The site is plain HTML/CSS/JS in `site/`. Everything mechanical lives in `scripts/felo.py`, so a person can run it without Claude. This skill wraps those scripts and adds the parts only a reviewer can do: looking at the pages and judging the wording.
+The site is plain HTML/CSS/JS in `docs/`. Everything mechanical lives in `scripts/felo.py`, so a person can run it without Claude. This skill wraps those scripts and adds the parts only a reviewer can do: looking at the pages and judging the wording.
 
 Read `brand/BRAND.md` before judging any wording or design. Never edit `theme/`; it's the Shopify backup.
 
@@ -46,7 +46,7 @@ Read `brand/BRAND.md` before judging any wording or design. Never edit `theme/`;
 
 ## Workflow C: feature a collection (new drop)
 
-1. `python scripts/felo.py refresh`, so a brand-new collection exists in `site/data/products.json`.
+1. `python scripts/felo.py refresh`, so a brand-new collection exists in `docs/data/products.json`.
 2. `python scripts/felo.py feature --list` to see the handles.
 3. `python scripts/felo.py feature <handle> --line "<one plain sentence: what it is>"`. The old lead drops to second place. Use `--second <handle>` to choose second place instead.
    - Tyler's favourites are `man-i-love-felo`, then `tfel-enterprises-premium`.
@@ -55,16 +55,16 @@ Read `brand/BRAND.md` before judging any wording or design. Never edit `theme/`;
 
 ## Where things live
 
-- Products: `site/data/products.json`. Generated; don't hand-edit.
-- Videos: `site/data/videos.json`. Generated; don't hand-edit.
-- Lead collections and social links: `site/data/site.json`.
-- Coaching packages, prices, open times and FAQ: `site/data/coaching.json`.
+- Products: `docs/data/products.json`. Generated; don't hand-edit.
+- Videos: `docs/data/videos.json`. Generated; don't hand-edit.
+- Lead collections and social links: `docs/data/site.json`.
+- Coaching packages, prices, open times and FAQ: `docs/data/coaching.json`.
   - `availability.status` is `open`, `waitlist` or `closed`.
   - Slots are ISO times with an offset.
 - Brand rules: `brand/BRAND.md` (for people) and `brand/brand.json` (read by the checker).
 - The two outside connections, still to wire up:
-  - `checkout()` in `site/js/store.js`.
-  - `send()` in `site/js/forms.js`.
+  - `checkout()` in `docs/js/store.js`.
+  - `send()` in `docs/js/forms.js`.
 - Don't touch these unless the user asks to connect checkout or forms.
 
 ## Known limits

@@ -1,4 +1,4 @@
-"""Copies the live product list from tfelent.com into site/data/products.json.
+"""Copies the live product list from tfelent.com into docs/data/products.json.
 
 The site reads that file instead of calling Shopify on every page load, so it works
 before any store is connected. Run it again whenever products change:
@@ -15,7 +15,7 @@ import urllib.request
 from pathlib import Path
 
 STORE = "https://tfelent.com"
-OUT = Path(__file__).resolve().parent.parent / "site" / "data" / "products.json"
+OUT = Path(__file__).resolve().parent.parent / "docs" / "data" / "products.json"
 
 # The brand collections shown as tiles on the site. Type collections (shirts, hoodies...)
 # are worked out from the product title instead, so they don't need their own list.

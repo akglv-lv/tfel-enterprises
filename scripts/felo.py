@@ -19,11 +19,11 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-SITE = ROOT / "site"
+SITE = ROOT / "docs"
 SCRIPTS = ROOT / "scripts"
 PY = sys.executable
 # What "ship" commits. theme/ (the Shopify backup) is left out on purpose.
-SHIP_PATHS = [p for p in ["site", "scripts", "brand", ".claude", ".github", "README.md"] if (ROOT / p).exists()]
+SHIP_PATHS = [p for p in ["docs", "scripts", "brand", ".claude", ".github", "README.md"] if (ROOT / p).exists()]
 
 
 def run(*args, check=False):
@@ -61,7 +61,7 @@ class NoCacheHandler(http.server.SimpleHTTPRequestHandler):
 def cmd_serve(args):
 	handler = functools.partial(NoCacheHandler, directory=str(SITE))
 	with http.server.ThreadingHTTPServer(("127.0.0.1", args.port), handler) as httpd:
-		print(f"Serving site/ at http://localhost:{args.port}  (Ctrl+C to stop)")
+		print(f"Serving docs/ at http://localhost:{args.port}  (Ctrl+C to stop)")
 		try:
 			httpd.serve_forever()
 		except KeyboardInterrupt:
@@ -157,12 +157,8 @@ def cmd_ship(args):
 		return 0
 	if git("push") != 0:
 		return 1
-	# GitHub Pages serves the gh-pages branch, which holds only the contents of site/.
-	print("\nPublishing site/ to GitHub Pages...")
-	if git("subtree", "push", "--prefix", "site", "origin", "gh-pages") != 0:
-		print("Publishing failed. The commit is pushed; run ship again to retry.")
-		return 1
-	print("Published: https://akglv-lv.github.io/tfel-enterprises/ (live in about a minute)")
+	# GitHub Pages publishes docs/ from main on every push.
+	print("Pushed. Live at https://akglv-lv.github.io/tfel-enterprises/ in about a minute.")
 	return 0
 
 

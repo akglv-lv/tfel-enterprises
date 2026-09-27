@@ -27,7 +27,7 @@
 		"#b5b5b5", "#262626", "#333", "#444", "#aaa",
 		"#5a4300", "#ffe58a", "#4bd48a", "#f2c14e"
 	],
-	"authored_files": ["site/*.html", "site/js/*.js", "site/js/pages/*.js", "site/css/*.css", "site/data/site.json", "site/data/coaching.json"],
-	"colour_exempt_files": ["site/js/swatches.js", "site/favicon.svg"],
+	"authored_files": ["docs/*.html", "docs/js/*.js", "docs/js/pages/*.js", "docs/css/*.css", "docs/data/site.json", "docs/data/coaching.json"],
+	"colour_exempt_files": ["docs/js/swatches.js", "docs/favicon.svg"],
 	"videos_stale_after_days": 14
 }
