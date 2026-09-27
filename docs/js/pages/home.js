@@ -82,3 +82,25 @@ function watchLive(channel) {
 getSite()
 	.then((site) => site.channels?.twitch && watchLive(site.channels.twitch))
 	.catch(() => {});
+
+// One-click social buttons under the company name. Links come from data/site.json.
+// Icons are simplified brand marks drawn in the page's ink colour.
+const ICONS = {
+	Twitch: '<path d="M4 2 2.5 6v14h5v3h3l3-3h4l5-5V2H4Zm16.5 12-3 3h-5l-3 3v-3H5V4h15.5v10ZM17 7.5h-2v5h2v-5Zm-5 0h-2v5h2v-5Z"/>',
+	YouTube: '<path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8ZM9.7 15.1V8.9L15.4 12l-5.7 3.1Z"/>',
+	TikTok: '<path d="M16.6 2h-3.4v13.3a2.9 2.9 0 1 1-2.9-2.9c.3 0 .6 0 .9.1V9a6.3 6.3 0 1 0 5.4 6.3V8.6a8 8 0 0 0 4.7 1.5V6.7a4.7 4.7 0 0 1-4.7-4.7Z"/>',
+	X: '<path d="M17.8 2.5h3.3l-7.2 8.2 8.5 11.3h-6.6l-5.2-6.8-6 6.8H1.3l7.7-8.8L.9 2.5h6.8l4.7 6.2 5.4-6.2Zm-1.2 17.5h1.8L7.2 4.4H5.2L16.6 20Z"/>',
+};
+getSite()
+	.then(async (site) => {
+		const { socialLinks } = await import("../layout.js");
+		const el = $("[data-socials-home]");
+		if (!el) return;
+		el.innerHTML = socialLinks(site.channels)
+			.map(
+				([name, url]) =>
+					`<a class="social-btn" href="${esc(url)}" target="_blank" rel="noopener" aria-label="FeLo on ${name}"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="currentColor">${ICONS[name] || ""}</svg><span>${name}</span></a>`,
+			)
+			.join("");
+	})
+	.catch(() => {});
