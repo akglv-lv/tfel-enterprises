@@ -57,3 +57,28 @@ Promise.all([getCatalog(), getSite()])
 		loadError(featureGrid, "products");
 		secondGrid.innerHTML = "";
 	});
+
+// Live banner: load Twitch's embed player out of sight and show the section only when it reports ONLINE.
+// No API key needed. Twitch requires the page's domain as "parent", so this skips files opened from disk.
+function watchLive(channel) {
+	if (!location.hostname) return;
+	const section = $("[data-live]");
+	const s = document.createElement("script");
+	s.src = "https://player.twitch.tv/js/embed/v1.js";
+	s.onload = () => {
+		const player = new window.Twitch.Player("live-player", {
+			channel,
+			parent: [location.hostname],
+			width: "100%",
+			height: "100%",
+			muted: true,
+			autoplay: true,
+		});
+		player.addEventListener(window.Twitch.Player.ONLINE, () => (section.hidden = false));
+		player.addEventListener(window.Twitch.Player.OFFLINE, () => (section.hidden = true));
+	};
+	document.head.appendChild(s);
+}
+getSite()
+	.then((site) => site.channels?.twitch && watchLive(site.channels.twitch))
+	.catch(() => {});

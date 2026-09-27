@@ -408,3 +408,14 @@ tr:last-child td { border-bottom: 0; }
 	*, *::before, *::after { transition: none !important; }
 	html { scroll-behavior: auto; }
 }
+
+/* Live banner on home (only shown while FeLo is streaming) */
+.live { background: var(--black); color: var(--on-black); }
+.live__inner { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 32px; align-items: center; padding-block: 28px; }
+.live__player { aspect-ratio: 16 / 9; max-width: 100%; background: var(--black); border-radius: var(--radius); overflow: hidden; }
+.live__player iframe { width: 100%; height: 100%; border: 0; display: block; }
+.live__copy { display: grid; gap: 14px; justify-items: start; }
+.live__copy .display { font-size: clamp(28px, 3.6vw, 44px); }
+.live__copy .lead { color: var(--on-black-grey); }
+.status--live { color: var(--red); background: #fff; border-color: #fff; }
+@media (max-width: 900px) { .live__inner { grid-template-columns: 1fr; gap: 18px; } }

@@ -19,6 +19,22 @@
 	<div data-site-header></div>
 
 	<main id="main" tabindex="-1">
+		<!-- Shown only while FeLo is live: Twitch's player tells us when the channel goes online or offline. -->
+		<section class="live" data-live hidden>
+			<div class="wrap live__inner">
+				<div class="live__player" id="live-player"></div>
+				<div class="live__copy">
+					<span class="status status--live">Live now</span>
+					<h2 class="display">FeLo is live on Twitch</h2>
+					<p class="lead">Watch here, or open the Watch page to join the chat.</p>
+					<div class="feature__actions">
+						<a class="btn btn--light" href="watch.html">Watch with chat</a>
+						<a class="btn btn--ghost" style="color: var(--on-black); border-color: #444" href="https://twitch.tv/FeLo" target="_blank" rel="noopener">Open Twitch</a>
+					</div>
+				</div>
+			</div>
+		</section>
+
 		<!-- The lead collection comes from data/site.json ("featured"). Change it with scripts/feature.py. -->
 		<section class="wrap feature" data-feature>
 			<div class="feature__pic" data-feature-pic></div>
@@ -38,6 +54,19 @@
 				<a class="link-arrow" href="shop.html" data-feature-link>View all</a>
 			</div>
 			<div class="grid grid--5" data-feature-grid></div>
+		</section>
+
+		<section class="wrap">
+			<div class="strip-cta" style="border-top: 1px solid var(--line)">
+				<div>
+					<h2 class="display">Call of Duty coaching</h2>
+					<p class="lead">1-on-1 sessions and VOD reviews with FeLo, a competitive CoD player for 11 years.</p>
+				</div>
+				<div class="feature__actions">
+					<a class="btn" href="coaching.html">See coaching</a>
+					<a class="btn btn--ghost" href="watch.html">Watch streams</a>
+				</div>
+			</div>
 		</section>
 
 		<section class="band">
@@ -61,18 +90,6 @@
 			<div class="col-cards" data-more></div>
 		</section>
 
-		<section class="wrap">
-			<div class="strip-cta" style="border-top: 1px solid var(--line)">
-				<div>
-					<h2 class="display">Call of Duty coaching</h2>
-					<p class="lead">1-on-1 sessions and VOD reviews with FeLo, a competitive CoD player for 11 years.</p>
-				</div>
-				<div class="feature__actions">
-					<a class="btn" href="coaching.html">See coaching</a>
-					<a class="btn btn--ghost" href="watch.html">Watch streams</a>
-				</div>
-			</div>
-		</section>
 	</main>
 
 	<div data-site-footer></div>
