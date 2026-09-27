@@ -23,7 +23,7 @@ SITE = ROOT / "site"
 SCRIPTS = ROOT / "scripts"
 PY = sys.executable
 # What "ship" commits. theme/ (the Shopify backup) is left out on purpose.
-SHIP_PATHS = ["site", "scripts", "brand", ".claude", ".github", "README.md"]
+SHIP_PATHS = [p for p in ["site", "scripts", "brand", ".claude", ".github", "README.md"] if (ROOT / p).exists()]
 
 
 def run(*args, check=False):
@@ -152,9 +152,17 @@ def cmd_ship(args):
 	git("add", "--", *SHIP_PATHS)
 	if git("commit", "-m", args.message) != 0:
 		return 1
-	if git("remote", capture=True):
-		return git("push")
-	print("\nCommitted. No git remote is set up yet, so nothing was pushed.")
+	if not git("remote", capture=True):
+		print("\nCommitted. No git remote is set up yet, so nothing was pushed.")
+		return 0
+	if git("push") != 0:
+		return 1
+	# GitHub Pages serves the gh-pages branch, which holds only the contents of site/.
+	print("\nPublishing site/ to GitHub Pages...")
+	if git("subtree", "push", "--prefix", "site", "origin", "gh-pages") != 0:
+		print("Publishing failed. The commit is pushed; run ship again to retry.")
+		return 1
+	print("Published: https://akglv-lv.github.io/tfel-enterprises/ (live in about a minute)")
 	return 0
 
 
