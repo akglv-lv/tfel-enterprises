@@ -23,7 +23,7 @@
 	},
 	"discord": {
 		"_note": "Tyler: Discord > Server Settings > Widget > Enable Server Widget, then paste the Server ID here as a string. Optional invite: a permanent invite link; otherwise the widget's own invite is used.",
-		"serverId": null,
+		"serverId": "405211669677998100",
 		"invite": null
 	}
 }

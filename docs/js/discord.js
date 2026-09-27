@@ -6,23 +6,24 @@ import { getSite } from "./store.js";
 const ICON =
 	'<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="currentColor"><path d="M20.3 4.4A19.8 19.8 0 0 0 15.4 3l-.6 1.3a18.4 18.4 0 0 0-5.6 0L8.6 3a19.7 19.7 0 0 0-4.9 1.5C.6 9.1-.3 13.7.1 18.2a20 20 0 0 0 6 3l1.3-2.1a13 13 0 0 1-2-1l.5-.4a14.2 14.2 0 0 0 12.2 0l.5.4c-.6.4-1.3.7-2 1l1.3 2.1a19.9 19.9 0 0 0 6-3c.5-5.2-.8-9.8-3.6-13.8ZM8 15.4c-1.2 0-2.2-1.1-2.2-2.4s1-2.4 2.2-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4Zm8 0c-1.2 0-2.2-1.1-2.2-2.4s1-2.4 2.2-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4Z"/></svg>';
 
-async function inviteFor(id, fallback) {
-	if (fallback) return fallback;
-	// The widget's public JSON includes a working invite link when the widget is enabled.
+// Discord's public widget data. Returns null while the server's widget is switched off,
+// so nothing shows until Ty enables it (Server Settings > Widget); then it appears on its own.
+async function widgetInfo(id) {
 	try {
 		const r = await fetch(`https://discord.com/api/guilds/${id}/widget.json`);
-		if (r.ok) return (await r.json()).instant_invite || null;
+		return r.ok ? await r.json() : null;
 	} catch {
-		// Blocked or offline: the button just isn't shown.
+		return null;
 	}
-	return null;
 }
 
 getSite().then(async (site) => {
 	const d = site.discord || {};
 	const id = String(d.serverId || "").trim();
 	if (!/^\d{15,22}$/.test(id)) return;
-	const invite = await inviteFor(id, d.invite);
+	const info = await widgetInfo(id);
+	if (!info) return;
+	const invite = d.invite || info.instant_invite || null;
 
 	const section = document.querySelector("[data-discord]");
 	if (section) {
